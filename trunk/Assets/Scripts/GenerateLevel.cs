@@ -18,7 +18,7 @@ public class GenerateLevel : MonoBehaviour
 	void Start ()
 	{
 		// use to get reliable dungeons
-		Random.seed = 140394581;
+		//Random.seed = 140394581;
 		Debug.Log (Random.seed);
 		
 		levelMatrix = new int[levelSize,levelSize];
@@ -48,7 +48,7 @@ public class GenerateLevel : MonoBehaviour
 		darknessTile = (GameObject)Resources.Load ("Prefabs/Floor Tile - Darkness");
 	}
 	
-	// fills dungeon matrix with empty "0" values
+	// fills dungeon matrix with empty "0" values (correspond to "darkness" tiles)
 	void clearDungeon()
 	{
 		for (int x = 0; x < levelMatrix.GetLength(0); x++)
