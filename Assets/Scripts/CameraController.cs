@@ -5,6 +5,8 @@ public class CameraController : MonoBehaviour {
 
 	public GameObject player;
 
+	private float cameraHeight = 3f;
+
 	// Use this for initialization
 	void Start () {
 		transform.eulerAngles = new Vector3 (45f, 0f, 0f);
@@ -18,9 +20,27 @@ public class CameraController : MonoBehaviour {
 
 		transform.eulerAngles = new Vector3 (45f, playerang, 0f);
 
-		float cameraoffx = 10 * Mathf.Sin (playerang * Mathf.Deg2Rad);
-		float cameraoffz = 10 * Mathf.Cos (playerang * Mathf.Deg2Rad);
+		float cameraoffx = 2 * Mathf.Sin (playerang * Mathf.Deg2Rad);
+		float cameraoffz = 2 * Mathf.Cos (playerang * Mathf.Deg2Rad);
 
-		transform.position = new Vector3 (playerpos.x - cameraoffx, 15f, playerpos.z - cameraoffz);
+		transform.position = new Vector3 (playerpos.x - cameraoffx, cameraHeight, playerpos.z - cameraoffz);
+		
+		
+		// added for playable core, can be commented out afterwards
+		if (Input.GetButton("A_Win"))
+		{
+			cameraHeight += 0.1f;
+			
+			if (cameraHeight > 15f)
+				cameraHeight = 15f;
+		}
+		else
+		{
+			cameraHeight -= 0.1f;
+			
+			if (cameraHeight < 3f)
+				cameraHeight = 3f;
+		}
+		
 	}
 }

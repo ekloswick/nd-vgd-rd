@@ -62,8 +62,7 @@ public class PlayerController : MonoBehaviour {
 		if(Mathf.Abs (lookx) > 0.1){
 			transform.Rotate (new Vector3(0f, newrotate, 0f));
 		}
-
-
+		
 		//some test stuff
 		/*
 		float testturn = Input.GetAxis ("DPad_XAxis_1");

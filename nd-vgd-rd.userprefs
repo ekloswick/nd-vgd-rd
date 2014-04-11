@@ -1,9 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GenerateLevel.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CameraController.cs">
     <Files>
-      <File FileName="Assets\Scripts\GenerateLevel.cs" Line="21" Column="3" />
-      <File FileName="..\RollABall\Assets\Scripts\GameSetup.cs" Line="8" Column="2" />
+      <File FileName="Assets\Scripts\CameraController.cs" Line="42" Column="21" />
+      <File FileName="Assets\Scripts\GenerateLevel.cs" Line="51" Column="80" />
+      <File FileName="Assets\Scripts\PlayerController.cs" Line="65" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
