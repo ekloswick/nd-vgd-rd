@@ -38,7 +38,10 @@ public class GenerateLevel : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		
+		if (Input.GetButtonDown("B_Win"))
+		{
+			Application.LoadLevel("firstPlayableCore");
+		}
 	}
 	
 	// loads in the appropriate prefabs
