@@ -62,6 +62,7 @@ public class PlayerController : MonoBehaviour {
 		float triggerval = Input.GetAxis (Triggers_name);
 
 		if(triggerval < -0.9 && !blocking && !blockup && !blockdown && !attacking){
+			animation["Attack"].speed = 2f;
 			animation.Play ("Attack");
 			attacking = true;
 		}
