@@ -27,7 +27,7 @@ public class CameraController : MonoBehaviour {
 		
 		
 		// added for playable core, can be commented out afterwards
-		if (Input.GetButton("A_Win"))
+		if (Input.GetButton("A_Win") || Input.GetKey (KeyCode.Q))
 		{
 			cameraHeight += 0.1f;
 			

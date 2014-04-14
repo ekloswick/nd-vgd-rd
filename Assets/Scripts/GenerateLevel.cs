@@ -17,6 +17,9 @@ public class GenerateLevel : MonoBehaviour
 						enemyTile,
 						treasureTile,
 						trapTile;
+	private float enemyChance = 0.02f,
+					treasureChance = 0.003f,
+					trapChance = 0.025f;
 	
 	// Use this for initialization
 	void Start ()
@@ -50,7 +53,7 @@ public class GenerateLevel : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if (Input.GetButtonDown("B_Win"))
+		if (Input.GetButtonDown("B_Win") || Input.GetKey (KeyCode.E))
 		{
 			Application.LoadLevel("firstPlayableCore");
 		}
@@ -87,7 +90,7 @@ public class GenerateLevel : MonoBehaviour
 		// add default room, always in every level
 		rooms.Add(new int[2] {levelSize/2,levelSize/2}); // could also be something like 10,10
 		
-		float randomNum;
+		float roomSpawn;
 		
 		// go through all tiles and randomly set room seeds
 		for (int x = 0; x < levelMatrix.GetLength(0); x++)
@@ -101,10 +104,10 @@ public class GenerateLevel : MonoBehaviour
 					continue;
 				}
 				
-				randomNum = Random.value;
+				roomSpawn = Random.value;
 				
 				// seed rooms
-				if (randomNum < roomSpawnChance)
+				if (roomSpawn < roomSpawnChance)
 					rooms.Add(new int[2] {x,z});
 				//else if (randomNum > 0.6)
 				else
@@ -118,13 +121,22 @@ public class GenerateLevel : MonoBehaviour
 			//Debug.Log ("Expanding tile " + item[0] + ", " + item[1]);
 			
 			//levelMatrix[item[0], item[1]] = 5;
-			expandRoom(item[0], item[1], Random.Range (4, 4+roomSize));
+			if (item[0] == levelSize/2 && item[1] == levelSize/2)
+				setupStartingRoom(item[0], item[1]);
+			else
+				expandRoom(item[0], item[1], Random.Range (4, 4+roomSize));
 		}
 		
 		// create corridors
 		generateCorridors();
 		
 		return;
+	}
+	
+	// creates the starting room that the player starts in
+	void setupStartingRoom(int x, int z)
+	{
+		
 	}
 	
 	// recursive function to fill out rooms
@@ -345,30 +357,17 @@ public class GenerateLevel : MonoBehaviour
 		{
 			for (int z = 2; z < levelMatrix.GetLength(1) - 2; z++)
 			{
-				if (levelMatrix[x,z] == 5)
-				{
-					/*int wallCount = 0;
-					
-					for (int i = -1; i < 2; i++)
-					{
-						for (int j = -1; j < 2; j++)
-						{					
-							if (i == 0 && j == 0)
-								continue;
-							else if (levelMatrix[x+i,z+j] == 0)
-								wallCount++;
-						}
-					}*/
-					
+				if (levelMatrix[x,z] == 5 || levelMatrix[x,z] == 11)
+				{					
 					// chance to spawn special tiles
 					float specialChance = Random.value;
 					
 					// 13 = enemy, 14 = treasure, 15 = trap
-					if (specialChance > 0.98f)
+					if (specialChance > 1.0f - enemyChance)//0.98f)
 						levelMatrix[x,z] = 13;
-					else if (specialChance > 0.975f)
+					else if (specialChance > 1.0f - enemyChance - treasureChance)//0.977f)
 						levelMatrix[x,z] = 14;
-					else if (specialChance > 0.95f)
+					else if (specialChance > 1.0f - enemyChance - treasureChance - trapChance)//0.952f)
 						levelMatrix[x,z] = 15;
 				}
 			}
@@ -385,10 +384,11 @@ public class GenerateLevel : MonoBehaviour
 		{
 			for (int z = 1; z < levelMatrix.GetLength(1) - 1; z++)
 			{
-				if (levelMatrix[x,z] == 5)
+				if (levelMatrix[x,z] == 5 || levelMatrix[x,z] == 11)
 				{
 					int wallCount = 0;
 					
+					// check surrounding tiles
 					for (int i = -1; i < 2; i++)
 					{
 						for (int j = -1; j < 2; j++)

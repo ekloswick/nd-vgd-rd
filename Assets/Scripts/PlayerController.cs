@@ -80,8 +80,15 @@ public class PlayerController : MonoBehaviour {
 			blockup = false;
 			blocking = true;
 		}
-
-		if(triggerval < 0.1 && blocking){
+		
+		// alternate, non-Xbox controller controls
+		if (Input.GetKeyUp (KeyCode.Mouse1) && blocking)
+		{
+			animation.Play ("BlockDown");
+			blocking = false;
+			blockdown = true;
+		}
+		else if (!Input.GetKey (KeyCode.Mouse1) && triggerval < 0.1 && blocking){
 			animation.Play ("BlockDown");
 			blocking = false;
 			blockdown = true;
@@ -91,6 +98,17 @@ public class PlayerController : MonoBehaviour {
 			blockdown = false;
 		}
 
+		// alternate, non-Xbox controller controls
+		if (Input.GetKeyDown (KeyCode.Mouse0))
+		{
+			animation.Play("Attack");
+			attacking = true;
+		}
+		else if (Input.GetKeyDown (KeyCode.Mouse1))
+		{
+			animation.Play ("BlockUp");
+			blockup = true;
+		}
 
 	}
 	
@@ -106,6 +124,13 @@ public class PlayerController : MonoBehaviour {
 		//Moving the player based on the left stick
 		float xinput = Input.GetAxis (L_XAxisname);
 		float zinput = -1 * Input.GetAxis (L_YAxisname);
+		
+		// alternate, non-Xbox controller controls
+		if (Input.GetKey (KeyCode.W))
+			zinput = 1.0f;
+		else if (Input.GetKey (KeyCode.S))
+			zinput = -1.0f;
+		
 		float playerang = transform.eulerAngles.y;
 
 		float xmotion1 = xinput * Mathf.Sin ((playerang + 90) * Mathf.Deg2Rad);
@@ -119,6 +144,7 @@ public class PlayerController : MonoBehaviour {
 
 		Vector3 newmotion = new Vector3 (xmotion, 0f, zmotion);
 
+		
 		rigidbody.MovePosition (transform.position + (modspeed * newmotion * Time.deltaTime));
 
 		//Roatating the player based on right stick
@@ -130,6 +156,12 @@ public class PlayerController : MonoBehaviour {
 		if(Mathf.Abs (lookx) > 0.1){
 			transform.Rotate (new Vector3(0f, newrotate, 0f));
 		}
+		
+		// alternate, non-Xbox controller controls
+		if (Input.GetKey (KeyCode.A))
+			transform.Rotate (new Vector3(0f, -1.0f * rotatespeed * Time.deltaTime, 0f));
+		else if (Input.GetKey(KeyCode.D))
+			transform.Rotate (new Vector3(0f, 1.0f * rotatespeed * Time.deltaTime, 0f));
 		
 		//some test stuff
 		/*
