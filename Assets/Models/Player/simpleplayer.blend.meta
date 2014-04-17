@@ -29,6 +29,8 @@ ModelImporter:
     400020: Right_Upper
     400022: //RootNode
     400024: Torso
+    2300000: Player
+    3300000: Player
     4300000: Player
     7400000: Default Take
     7400002: Action
@@ -38,6 +40,7 @@ ModelImporter:
     7400010: Attack
     7400012: BlockDown
     7400014: BlockUp
+    7400016: Block
     9500000: //RootNode
     11100000: //RootNode
     13700000: Player
@@ -49,7 +52,7 @@ ModelImporter:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     optimizeGameObjects: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
@@ -91,6 +94,6 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 1
+  animationType: 2
   additionalBone: 0
   userData: 

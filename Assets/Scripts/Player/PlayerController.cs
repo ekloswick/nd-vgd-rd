@@ -13,26 +13,17 @@ public class PlayerController : MonoBehaviour {
 	private string Triggers_name;
 	private string DPad_YAxis_name;
 
-	private bool blockup;
-	private bool blockdown;
-	private bool blocking;
-	private bool attacking;
-	private bool walking;
-
 	private float modspeed;
+
+	private Animator myAnim;
 
 	// Use this for initialization
 	void Start () {
 
-		blocking = false;
-		attacking = false;
-		walking = false;
-
-		animation.GetClip ("Walk").wrapMode = WrapMode.Loop;
-		animation.GetClip ("Idle").wrapMode = WrapMode.Once;
-		animation.GetClip ("Attack").wrapMode = WrapMode.Once;
-		animation.GetClip ("BlockUp").wrapMode = WrapMode.Once;
-		animation.GetClip ("BlockDown").wrapMode = WrapMode.Once;
+		myAnim = GetComponent<Animator> ();
+		myAnim.SetBool("blocking", false);
+		myAnim.SetBool ("attacking", false);
+		myAnim.SetBool("walking", false);
 
 		if(Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor){
 			L_XAxisname = "L_XAxis_Win";
@@ -53,69 +44,31 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		rigidbody.freezeRotation = true;
-
-		animation.Play ("Idle");
 	
 	}
 
 	void Update(){
 		float triggerval = Input.GetAxis (Triggers_name);
 
-		if(triggerval < -0.9 && !blocking && !blockup && !blockdown && !attacking){
-			animation["Attack"].speed = 2f;
-			animation.Play ("Attack");
-			attacking = true;
+		if(triggerval < -0.9 || Input.GetKey (KeyCode.Mouse0)){
+			myAnim.SetBool("attacking", true);
+		} else {
+			myAnim.SetBool("attacking", false);
 		}
 
-		if(attacking && !animation.IsPlaying("Attack")){
-			attacking = false;
+		if(triggerval > 0.9 || Input.GetKey (KeyCode.Mouse1)){
+			myAnim.SetBool("blocking", true);
+		} else {
+			myAnim.SetBool("blocking", false);
 		}
 
-		if(triggerval > 0.9 && !blocking && !blockup && !blockdown && !attacking){
-			animation.Play ("BlockUp");
-			blockup = true;
-		}
-
-		if(blockup && !animation.IsPlaying("BlockUp")){
-			blockup = false;
-			blocking = true;
-		}
-		
-		// alternate, non-Xbox controller controls
-		if (Input.GetKeyUp (KeyCode.Mouse1) && blocking)
-		{
-			animation.Play ("BlockDown");
-			blocking = false;
-			blockdown = true;
-		}
-		else if (!Input.GetKey (KeyCode.Mouse1) && triggerval < 0.1 && blocking){
-			animation.Play ("BlockDown");
-			blocking = false;
-			blockdown = true;
-		}
-
-		if(!animation.IsPlaying("BlockDown")){
-			blockdown = false;
-		}
-
-		// alternate, non-Xbox controller controls
-		if (Input.GetKeyDown (KeyCode.Mouse0))
-		{
-			animation.Play("Attack");
-			attacking = true;
-		}
-		else if (Input.GetKeyDown (KeyCode.Mouse1))
-		{
-			animation.Play ("BlockUp");
-			blockup = true;
-		}
 
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
 
-		if(blockup || blocking || blockdown){
+		if(myAnim.GetCurrentAnimatorStateInfo(0).IsName("Blocking")){
 			modspeed = speed * 0.5f;
 		} else {
 			modspeed = speed;
@@ -171,8 +124,8 @@ public class PlayerController : MonoBehaviour {
 		*/
 
 
-		//Vector3 ppos = transform.position;
-		//print ("Player position: " + ppos.x + ", " + ppos.y + ", " + ppos.z);
+		Vector3 ppos = transform.position;
+		print ("Player position: " + ppos.x + ", " + ppos.y + ", " + ppos.z);
 
 
 
