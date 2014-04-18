@@ -60,7 +60,7 @@ public class GenerateLevel : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if (Input.GetButtonDown("B_Win") || Input.GetKeyDown (KeyCode.E))
+		if (Input.GetButtonDown(MyInput.B_name) || Input.GetKeyDown (KeyCode.E))
 		{
 			Application.LoadLevel("firstPlayableCore");
 		}
