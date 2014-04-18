@@ -4,8 +4,11 @@ using System.Collections;
 public class CameraController : MonoBehaviour {
 
 	public GameObject player;
+	public float speed;
 
 	private float cameraHeight = 3f;
+	public static float angle = 0;
+	private float direction;
 
 	// Use this for initialization
 	void Start () {
@@ -16,18 +19,35 @@ public class CameraController : MonoBehaviour {
 	void Update () {
 
 		Vector3 playerpos = player.transform.position;
-		float playerang = player.transform.eulerAngles.y;
 
-		transform.eulerAngles = new Vector3 (45f, playerang, 0f);
+		float rotatein = Input.GetAxis (MyInput.R_XAxisname);
 
-		float cameraoffx = 2 * Mathf.Sin (playerang * Mathf.Deg2Rad);
-		float cameraoffz = 2 * Mathf.Cos (playerang * Mathf.Deg2Rad);
+		if(Mathf.Abs (rotatein) < 0.1){
+			direction = 0f;
+		} else {
+			direction = Mathf.Sign (rotatein);
+		}
+
+		angle += direction * speed * Time.deltaTime;
+
+		if(angle > 360){
+			angle -= 360;
+		}
+
+		if(angle < 0){
+			angle += 360;
+		}
+
+		transform.eulerAngles = new Vector3 (45f, angle, 0f);
+
+		float cameraoffx = 2 * Mathf.Sin (angle * Mathf.Deg2Rad);
+		float cameraoffz = 2 * Mathf.Cos (angle * Mathf.Deg2Rad);
 
 		transform.position = new Vector3 (playerpos.x - cameraoffx, cameraHeight, playerpos.z - cameraoffz);
 		
 		
 		// added for playable core, can be commented out afterwards
-		if (Input.GetButton("A_Win") || Input.GetKey (KeyCode.Q))
+		if (Input.GetButton(MyInput.A_name) || Input.GetKey (KeyCode.Q))
 		{
 			cameraHeight += 0.1f;
 			
