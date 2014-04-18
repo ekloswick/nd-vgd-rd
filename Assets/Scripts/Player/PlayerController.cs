@@ -68,7 +68,6 @@ public class PlayerController : MonoBehaviour {
 			zinput = -1.0f;
 
 		// alternate, non-Xbox controller controls
-		bool keyboard = false;
 		if (Input.GetKey (KeyCode.A))
 			zinput += 0.02f;
 		else if (Input.GetKey(KeyCode.D))
@@ -76,6 +75,15 @@ public class PlayerController : MonoBehaviour {
 
 		if(Mathf.Abs (xinput) > 0.01f || Mathf.Abs (zinput) > 0.01f){
 			lookangle = (Mathf.Atan2 (xinput, zinput) * Mathf.Rad2Deg) + CameraController.angle;
+
+			if(Input.GetKey (KeyCode.S))
+				lookangle = (Mathf.Atan2 (xinput, zinput) * Mathf.Rad2Deg) + CameraController.angle + 180;
+
+			if(lookangle > 360)
+				lookangle -= 360;
+			if(lookangle < 0)
+				lookangle += 360;
+
 			transform.eulerAngles = new Vector3(0f, lookangle, 0f);
 		}
 
