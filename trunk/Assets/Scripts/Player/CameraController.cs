@@ -28,6 +28,12 @@ public class CameraController : MonoBehaviour {
 			direction = Mathf.Sign (rotatein);
 		}
 
+		// alternate, non-Xbox controller controls
+		if (Input.GetKey (KeyCode.A))
+			direction = -1;
+		else if (Input.GetKey(KeyCode.D))
+			direction = 1;
+
 		angle += direction * speed * Time.deltaTime;
 
 		if(angle > 360){

@@ -25,11 +25,6 @@ public class MyInput : MonoBehaviour {
 	void Start () {
 		setInputs ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
 	void setInputs(){
 		if(Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor){
