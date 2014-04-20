@@ -1,9 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Procedural\GenerateLevel.cs">
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Enemies\MeleeEnemyAI.cs">
     <Files>
-      <File FileName="Assets\Scripts\Procedural\GenerateLevel.cs" Line="592" Column="1" />
-      <File FileName="Assets\Scripts\Procedural\GenerateLevel.cs" Line="278" Column="72" />
+      <File FileName="Assets\Scripts\Enemies\MeleeEnemyAI.cs" Line="33" Column="48" />
+      <File FileName="Assets\Scripts\Procedural\GenerateLevel.cs" Line="528" Column="8" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

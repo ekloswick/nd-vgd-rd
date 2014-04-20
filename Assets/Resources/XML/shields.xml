@@ -1,0 +1,10 @@
+<ShieldCollection>
+	<Shields>
+		<Shield name="StarterShield">
+			<Block>5</Block>
+		</Shield>
+		<Shield name="BetterShield">
+			<Block>10</Block>
+		</Shield>
+	</Shields>
+</ShieldCollection>
