@@ -1,0 +1,7 @@
+<Spells>
+	<Spell name="Fireball">
+		<Type>Ranged</Type>
+		<Damage>10/Damage>
+		<Element>Fire"</Element>
+	</Spell>
+</Spells>

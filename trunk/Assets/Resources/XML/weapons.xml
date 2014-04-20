@@ -1,0 +1,12 @@
+<WeaponCollection>
+	<Weapons>
+		<Weapon name="StarterSword">
+			<Type>Melee</Type>
+			<Damage>5</Damage>
+		</Weapon>
+		<Weapon name="BetterSword">
+			<Type>Melee</Type>
+			<Damage>10</Damage>
+		</Weapon>
+	</Weapons>
+</WeaponCollection>

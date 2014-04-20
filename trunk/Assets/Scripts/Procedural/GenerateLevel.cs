@@ -453,9 +453,26 @@ public class GenerateLevel : MonoBehaviour
 		{
 			for (int z = 0; z < levelMatrix.GetLength(1); z++)
 			{
-				// if outside tiles, hide them
-				if ((x == 0 || x == levelMatrix.GetLength(0) - 1 || z == 0 || z == levelMatrix.GetLength(1) - 1))
-					continue;
+				// if border tiles, check if they can be hidden
+				if (x == 0 || x == levelMatrix.GetLength(0) - 1 || z == 0 || z == levelMatrix.GetLength(1) - 1)
+				{
+					if (x == 0 && levelMatrix[x+1,z] != 5)
+					{
+						levelMatrix[x,z] = -1;
+					}
+					else if (x == levelMatrix.GetLength(0) - 1 && levelMatrix[x-1,z] != 5)
+					{
+						levelMatrix[x,z] = -1;
+					}
+					else if (z == 0 && levelMatrix[x,z+1] != 5)
+					{
+						levelMatrix[x,z] = -1;
+					}
+					else if (z == levelMatrix.GetLength(1) - 1 && levelMatrix[x,z-1] != 5)
+					{
+						levelMatrix[x,z] = -1;
+					}
+				}
 				// tweaks regarding surrounding tiles
 				else //if (levelMatrix[x,z] == 5 || levelMatrix[x,z] == 11)
 				{
@@ -494,9 +511,11 @@ public class GenerateLevel : MonoBehaviour
 			for (int z = 0; z < levelMatrix.GetLength(1); z++)
 			{
 				// code for if we want to not draw certain tiles
-				if (levelMatrix[x,z] == -1)
+				// -1 = empty, 0 = black walls, 5 = white floor
+				if (levelMatrix[x,z] == -1)// || levelMatrix[x,z] == 0)
 					continue;
 				
+				// 0 = dev, 1 = dungeon (not implemented yet)
 				if (tileStyle == 0)
 				{
 					GameObject obj = getDevTile(levelMatrix[x,z]);
