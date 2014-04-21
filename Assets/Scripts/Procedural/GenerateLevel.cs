@@ -558,13 +558,11 @@ public class GenerateLevel : MonoBehaviour
 				{
 					obj = (GameObject)Instantiate(goblin,new Vector3(x, 0.2f, z), new Quaternion());
 				}
-				
 			}
 		}
 		
 		return;
 	}
-	
 	
 	// returns the appropriate dev tile
 	GameObject getDevTile(int tileNum)

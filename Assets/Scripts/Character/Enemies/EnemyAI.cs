@@ -38,10 +38,10 @@ public class EnemyAI : MonoBehaviour {
 	}
 	
 	// tries to keep some distance away from objects
-	public void objectAvoidance()
+	public void obstacleAvoidance()
 	{
-		// cast 4 raycasts out from enemy in "cardinal" directions, looking only for walls
-		// if walls are found, make sure distance from them is greater than 0.2
+		// cast 8 raycasts out from enemy, looking for obstacles
+		// if obstacles are found, make sure distance from them is greater than 0.2
 		foreach (Vector3 dir in objectChecks)
 		{
 			RaycastHit hit = new RaycastHit();
@@ -54,10 +54,10 @@ public class EnemyAI : MonoBehaviour {
 				//Debug.DrawRay (transform.position, dir, Color.red, 0.5f);
 				
 				// if raycast hits wall that's closer than 0.5 units away
-				if (hit.transform.tag == "Wall" && hit.distance < 0.5f)
+				if ((hit.transform.tag == "Wall" || hit.transform.tag == "Enemy" || hit.transform.tag == "Chest") && hit.distance < 0.5f)
 				{
 					//Debug.Log("Pushing away from wall: " + dir);
-					transform.position = transform.position - 0.5f*dir*Time.deltaTime;
+					transform.position = transform.position - 0.7f*dir*Time.deltaTime;
 				}
 			}
 		}

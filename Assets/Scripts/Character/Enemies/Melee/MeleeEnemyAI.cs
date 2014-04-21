@@ -55,7 +55,7 @@ public class MeleeEnemyAI : EnemyAI {
 			}
 		}
 		
-		// pushes the enemy away from walls
-		objectAvoidance();
+		// pushes the enemy away from obstacles
+		obstacleAvoidance();
 	}
 }
