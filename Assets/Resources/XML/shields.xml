@@ -2,9 +2,11 @@
 	<Shields>
 		<Shield name="StarterShield">
 			<Block>5</Block>
+			<Atrributes>0</Attributes>
 		</Shield>
 		<Shield name="BetterShield">
 			<Block>10</Block>
+			<Atrributes>0</Attributes>
 		</Shield>
 	</Shields>
 </ShieldCollection>
