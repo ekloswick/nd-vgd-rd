@@ -1,10 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Character\Enemies\EnemyAI.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Character\Enemies\Melee\MeleeEnemyAI.cs">
     <Files>
-      <File FileName="Assets\Scripts\Character\Enemies\EnemyAI.cs" Line="51" Column="80" />
-      <File FileName="Assets\Scripts\Character\Enemies\Melee\MeleeEnemyAI.cs" Line="59" Column="18" />
-      <File FileName="Assets\Scripts\Procedural\GenerateLevel.cs" Line="559" Column="12" />
+      <File FileName="Assets\Scripts\Character\Enemies\EnemyAI.cs" Line="57" Column="100" />
+      <File FileName="Assets\Scripts\Character\Enemies\Melee\MeleeEnemyAI.cs" Line="59" Column="20" />
+      <File FileName="Assets\Scripts\Procedural\GenerateLevel.cs" Line="566" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
