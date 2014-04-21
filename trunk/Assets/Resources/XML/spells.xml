@@ -2,6 +2,7 @@
 	<Spell name="Fireball">
 		<Type>Ranged</Type>
 		<Damage>10/Damage>
-		<Element>Fire"</Element>
+		<Atrributes>1</Attributes>
+		<Cooldown>15</Cooldown>
 	</Spell>
 </Spells>

@@ -4,23 +4,28 @@ using System.Collections.Generic;
 
 public class GenerateLevel : MonoBehaviour
 {
+	// world related variables
 	public int levelSize = 50;
 	public int roomSize = 5;
 	public float tileSpawnChance = 0.75f;
 	public float roomSpawnChance = 0.008f;
-	public int tileStyle = 0; // 0 for dev, 1 for default dungeon, other values not currently defined
-	
-	//[HideInInspector]
+	public int tileStyle = 0; // 0 for dev, 1 for default dungeon, other values than 0 not currently defined
 	private int[] startingLocation;
-	
 	private int[,] levelMatrix;
 	private List<int[]> rooms = new List<int[]>();
+	
+	// tiles
 	private GameObject basicTile,
 						pathTile,
 						darknessTile,
 						enemyTile,
 						treasureTile,
 						trapTile;
+	
+	// enemies
+	private GameObject goblin;
+	
+	// spawn chances	
 	private float enemyChance = 0.02f,
 					treasureChance = 0.003f,
 					trapChance = 0.025f;
@@ -42,14 +47,17 @@ public class GenerateLevel : MonoBehaviour
 		// create the dungeon
 		generateDungeon();
 		
-		// populate dungeon with actual stuff
-		populateDungeon();
+		// litter dungeon with tiles
+		tileDungeon();
 		
 		// scan dungeon to make small tweaks
 		refineDungeon();
 		
 		// draw the dungeon
 		showDungeon();
+		
+		// populate dungeon with actual stuff
+		populateDungeon();
 		
 		// move player to starting area
 		GameObject.FindWithTag("Player").transform.position = new Vector3(startingLocation[0], 0, startingLocation[1]);
@@ -101,6 +109,9 @@ public class GenerateLevel : MonoBehaviour
 			horizCorridorTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/horizCorridor");
 			
 		}*/
+		
+		
+		goblin = (GameObject)Resources.Load("Prefabs/Enemies/Goblin");
 	}
 	
 	// fills dungeon matrix with empty "0" values (correspond to "darkness" tiles)
@@ -418,8 +429,8 @@ public class GenerateLevel : MonoBehaviour
 		return;
 	}
 	
-	// passes over the levelMatrix to put in enemies, treasures, and traps
-	void populateDungeon()
+	// passes over the levelMatrix to put in tiles for enemy, treasure, and trap spawns
+	void tileDungeon()
 	{
 		// only go over tiles that can have floor tiles
 		for (int x = 2; x < levelMatrix.GetLength(0) - 2; x++)
@@ -532,6 +543,28 @@ public class GenerateLevel : MonoBehaviour
 		
 		return;
 	}
+	
+	// actually creates enemies, chests, traps, and other things
+	void populateDungeon()
+	{
+		GameObject obj;
+		
+		for (int x = 0; x < levelMatrix.GetLength(0); x++)
+		{
+			for (int z = 0; z < levelMatrix.GetLength(1); z++)
+			{
+				// spawns enemies on enemy tiles (will eventually be weighted randomness, currently is just goblins)
+				if (levelMatrix[x,z] == 13)
+				{
+					obj = (GameObject)Instantiate(goblin,new Vector3(x, 0.2f, z), new Quaternion());
+				}
+				
+			}
+		}
+		
+		return;
+	}
+	
 	
 	// returns the appropriate dev tile
 	GameObject getDevTile(int tileNum)

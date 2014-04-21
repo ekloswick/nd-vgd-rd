@@ -46,13 +46,19 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Character\Stats.cs" />
-     <Compile Include="Assets\Scripts\Enemies\MeleeEnemyAI.cs" />
-     <Compile Include="Assets\Scripts\GUI\InGameGUI.cs" />
-     <Compile Include="Assets\Scripts\Player\CameraController.cs" />
-     <Compile Include="Assets\Scripts\Player\MyInput.cs" />
-     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\Character\CharacterStats.cs" />
+     <Compile Include="Assets\Scripts\Character\Enemies\EnemyAI.cs" />
+     <Compile Include="Assets\Scripts\Character\Enemies\EnemyStats.cs" />
+     <Compile Include="Assets\Scripts\Character\Enemies\Melee\MeleeEnemyAI.cs" />
+     <Compile Include="Assets\Scripts\Character\Player\CameraController.cs" />
+     <Compile Include="Assets\Scripts\Character\Player\MyInput.cs" />
+     <Compile Include="Assets\Scripts\Character\Player\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\Character\Player\PlayerStats.cs" />
+     <Compile Include="Assets\Scripts\HUD\PlayerHUD.cs" />
+     <Compile Include="Assets\Scripts\ObjectDefintions\SmellPoint.cs" />
      <Compile Include="Assets\Scripts\Procedural\GenerateLevel.cs" />
+     <Compile Include="Assets\Scripts\Procedural\ObjectDatabase.cs" />
+     <None Include="Assets\Resources\XML\enemies.xml" />
      <None Include="Assets\Resources\XML\spells.xml" />
      <None Include="Assets\Resources\XML\weapons.xml" />
      <None Include="Assets\Resources\XML\shields.xml" />
