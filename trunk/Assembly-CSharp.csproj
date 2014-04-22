@@ -46,14 +46,15 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Character\CharacterStats.cs" />
-     <Compile Include="Assets\Scripts\Character\Enemies\EnemyAI.cs" />
-     <Compile Include="Assets\Scripts\Character\Enemies\EnemyStats.cs" />
-     <Compile Include="Assets\Scripts\Character\Enemies\Melee\MeleeEnemyAI.cs" />
-     <Compile Include="Assets\Scripts\Character\Player\CameraController.cs" />
-     <Compile Include="Assets\Scripts\Character\Player\MyInput.cs" />
-     <Compile Include="Assets\Scripts\Character\Player\PlayerController.cs" />
-     <Compile Include="Assets\Scripts\Character\Player\PlayerStats.cs" />
+     <Compile Include="Assets\Scripts\Characters\CharacterStats.cs" />
+     <Compile Include="Assets\Scripts\Characters\Enemies\EnemyAI.cs" />
+     <Compile Include="Assets\Scripts\Characters\Enemies\EnemyStats.cs" />
+     <Compile Include="Assets\Scripts\Characters\Enemies\Melee\MeleeEnemyAI.cs" />
+     <Compile Include="Assets\Scripts\Characters\Player\CameraController.cs" />
+     <Compile Include="Assets\Scripts\Characters\Player\MyInput.cs" />
+     <Compile Include="Assets\Scripts\Characters\Player\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\Characters\Player\PlayerStats.cs" />
+     <Compile Include="Assets\Scripts\General\LockMouse.cs" />
      <Compile Include="Assets\Scripts\HUD\PlayerHUD.cs" />
      <Compile Include="Assets\Scripts\ObjectDefintions\SmellPoint.cs" />
      <Compile Include="Assets\Scripts\Procedural\GenerateLevel.cs" />
