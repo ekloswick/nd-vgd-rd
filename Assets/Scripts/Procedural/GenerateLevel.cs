@@ -9,7 +9,7 @@ public class GenerateLevel : MonoBehaviour
 	public int roomSize = 5;
 	public float tileSpawnChance = 0.75f;
 	public float roomSpawnChance = 0.008f;
-	public int tileStyle = 0; // 0 for dev, 1 for default dungeon, other values than 0 not currently defined
+	public int tileStyle = 1; // 0 for dev, 1 for default dungeon
 	private int[] startingLocation;
 	private int[,] levelMatrix;
 	private List<int[]> rooms = new List<int[]>();
@@ -17,7 +17,7 @@ public class GenerateLevel : MonoBehaviour
 	// tiles
 	private GameObject basicTile,
 						pathTile,
-						darknessTile,
+						wallTile,
 						enemyTile,
 						treasureTile,
 						trapTile;
@@ -26,9 +26,9 @@ public class GenerateLevel : MonoBehaviour
 	private GameObject goblin;
 	
 	// spawn chances	
-	private float enemyChance = 0.02f,
+	private float enemyChance = 0.01f,
 					treasureChance = 0.003f,
-					trapChance = 0.025f;
+					trapChance = 0.015f;
 	
 	// Use this for initialization
 	void Start ()
@@ -70,47 +70,33 @@ public class GenerateLevel : MonoBehaviour
 	{
 		if (Input.GetButtonDown(MyInput.B_name) || Input.GetKeyDown (KeyCode.E))
 		{
-			Application.LoadLevel("firstPlayableCore");
+			Application.LoadLevel("enemiesTest");
 		}
 	}
 	
 	// loads in the appropriate prefabs
 	void loadPrefabs()
 	{
+		// tiles
 		if (tileStyle == 0)
 		{
 			// dev tiles
 			basicTile = (GameObject)Resources.Load ("Prefabs/Dev Tiles/Basic");
 			pathTile = (GameObject)Resources.Load ("Prefabs/Dev Tiles/Corridor");
-			darknessTile = (GameObject)Resources.Load ("Prefabs/Dev Tiles/Darkness");
+			wallTile = (GameObject)Resources.Load ("Prefabs/Dev Tiles/Wall");
 			enemyTile = (GameObject)Resources.Load ("Prefabs/Dev Tiles/Enemy");
 			treasureTile = (GameObject)Resources.Load ("Prefabs/Dev Tiles/Treasure");
 			trapTile = (GameObject)Resources.Load ("Prefabs/Dev Tiles/Trap");
 		}
-		/*else if (tileStyle == 1)
+		else if (tileStyle == 1)
 		{
-			// dungeon tiles
-			noWallTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/NoWall");
-			oneWallTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/OneWall");
-			twoWallTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/TwoWall");
-			threeWallTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/ThreeWall");
-			corridorTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/Corridor");
-			
-			upLeftTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/upLeft");
-			upTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/up");
-			upRightTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/upRight");
-			leftTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/left");
-			middleTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/middle");
-			rightTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/right");
-			downLeftTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/downLeft");
-			downTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/down");
-			downRightTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/downRight");
-			vertCorridorTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/vertCorridor");
-			horizCorridorTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/horizCorridor");
-			
-		}*/
+			// textured dungeon tiles
+			basicTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/Basic Textured");
+			wallTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/Wall Textured");
+			trapTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/Trap Textured");
+		}
 		
-		
+		// enemies
 		goblin = (GameObject)Resources.Load("Prefabs/Enemies/Goblin");
 	}
 	
@@ -532,11 +518,11 @@ public class GenerateLevel : MonoBehaviour
 					GameObject obj = getDevTile(levelMatrix[x,z]);
 					obj.transform.position = new Vector3(x, 0.0f, z);
 				}
-				/*else if (tileStyle == 1)
+				else if (tileStyle == 1)
 				{
-					GameObject obj = getDungeonTile(levelMatrix[x,z], x, z);
+					GameObject obj = getDungeonTile(levelMatrix[x,z]);
 					obj.transform.position = new Vector3(x, 0.0f, z);
-				}*/
+				}
 				
 			}
 		}
@@ -580,62 +566,28 @@ public class GenerateLevel : MonoBehaviour
 			case 15:
 				return (GameObject)Instantiate(trapTile);
 			case 0:
-				return (GameObject)Instantiate(darknessTile);
+				return (GameObject)Instantiate(wallTile);
 			default:
 				return GameObject.CreatePrimitive(PrimitiveType.Sphere);
 		}
 	}
 	
 	// returns the appropriate dungeon tile
-	/*GameObject getDungeonTile(int tileNum, int x, int z)
+	GameObject getDungeonTile(int tileNum)
 	{
-		int wallCount = 0;
-		
-		// check surrounding tiles
-		for (int i = -1; i < 2; i++)
-		{
-			for (int j = -1; j < 2; j++)
-			{					
-				if ((i + j) % 2 == 0)
-					continue;
-				else if (levelMatrix[x+i,z+j] == 0 || levelMatrix[x+i,z+j] == -1)
-					wallCount++;
-			}
-		}
-	
-		// check for corner wall or corridor wall
-		if (wallCount == 2)
-		{
-			
-		}
-		
 		switch (tileNum)
 		{
-			case 1:
-				break;
-			case 2:
-			case 3:
-			case 4:
 			case 5:
-				return (GameObject)Instantiate(noWallTile);
-			case 6:
-			case 7:
-			case 8:
-			case 9:
 			case 11:
-				return (GameObject)Instantiate(pathTile);
-			case 22:
-				break;
 			case 13:
-				return (GameObject)Instantiate(enemyTile);
 			case 14:
-				return (GameObject)Instantiate(treasureTile);
+				return (GameObject)Instantiate(basicTile);
 			case 15:
 				return (GameObject)Instantiate(trapTile);
 			case 0:
-				return (GameObject)Instantiate(darknessTile);
+				return (GameObject)Instantiate(wallTile);
 			default:
 				return GameObject.CreatePrimitive(PrimitiveType.Sphere);
 		}
-	}*/
+	}
 }
