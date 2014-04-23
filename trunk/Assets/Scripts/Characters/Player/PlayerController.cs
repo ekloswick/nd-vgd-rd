@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour {
 		else if (Input.GetKey(KeyCode.D))
 			zinput += 0.02f;
 
-		if((Mathf.Abs (xinput) > 0.01f || Mathf.Abs (zinput) > 0.01f) && !myAnim.GetCurrentAnimatorStateInfo(0).IsName("Blocking")){
+		if((Mathf.Abs (xinput) > 0.01f || Mathf.Abs (zinput) > 0.01f) && !myAnim.GetCurrentAnimatorStateInfo(0).IsName("Blocking") && !myAnim.GetCurrentAnimatorStateInfo(0).IsName("Attacking")){
 			lookangle = (Mathf.Atan2 (xinput, zinput) * Mathf.Rad2Deg) + CameraController.angle;
 
 			if(Input.GetKey (KeyCode.S))
