@@ -16,6 +16,19 @@ ModelImporter:
     100020: Right_Upper
     100022: //RootNode
     100024: Torso
+    100026: Left_Clavicle
+    100028: Left_Forearm
+    100030: Left_Upper_Arm
+    100032: Right_Clavicle
+    100034: Right_Forearm
+    100036: Right_Upper_Arm
+    100038: Left_Hip
+    100040: Left_Thigh
+    100042: Lower_Torso
+    100044: Neck
+    100046: Right_Hip
+    100048: Right_Thigh
+    100050: Upper_Torso
     400000: Armature
     400002: Head
     400004: Left_Arm
@@ -29,6 +42,19 @@ ModelImporter:
     400020: Right_Upper
     400022: //RootNode
     400024: Torso
+    400026: Left_Clavicle
+    400028: Left_Forearm
+    400030: Left_Upper_Arm
+    400032: Right_Clavicle
+    400034: Right_Forearm
+    400036: Right_Upper_Arm
+    400038: Left_Hip
+    400040: Left_Thigh
+    400042: Lower_Torso
+    400044: Neck
+    400046: Right_Hip
+    400048: Right_Thigh
+    400050: Upper_Torso
     2300000: Player
     3300000: Player
     4300000: Player
