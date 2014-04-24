@@ -67,6 +67,11 @@ ModelImporter:
     7400012: BlockDown
     7400014: BlockUp
     7400016: Block
+    7400018: WalkBackward
+    7400020: WalkForward
+    7400022: WalkLeft
+    7400024: WalkRight
+    7400026: Standing
     9500000: //RootNode
     11100000: //RootNode
     13700000: Player
