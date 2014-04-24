@@ -25,6 +25,9 @@ public class GenerateLevel : MonoBehaviour
 	// enemies
 	private GameObject goblin;
 	
+	// items
+	private GameObject chest;
+	
 	// spawn chances	
 	private float enemyChance = 0.01f,
 					treasureChance = 0.003f,
@@ -98,6 +101,9 @@ public class GenerateLevel : MonoBehaviour
 		
 		// enemies
 		goblin = (GameObject)Resources.Load("Prefabs/Enemies/Goblin");
+		
+		// items
+		chest = (GameObject)Resources.Load ("Prefabs/Items/Chest");
 	}
 	
 	// fills dungeon matrix with empty "0" values (correspond to "darkness" tiles)
@@ -542,7 +548,12 @@ public class GenerateLevel : MonoBehaviour
 				// spawns enemies on enemy tiles (will eventually be weighted randomness, currently is just goblins)
 				if (levelMatrix[x,z] == 13)
 				{
-					obj = (GameObject)Instantiate(goblin,new Vector3(x, 0.2f, z), new Quaternion());
+					obj = (GameObject)Instantiate(goblin, new Vector3(x, 0.2f, z), new Quaternion());
+				}
+				// spawns treasure chests
+				else if (levelMatrix[x,z] == 14)
+				{
+					obj = (GameObject)Instantiate(chest, new Vector3(x, 0.15f, z), new Quaternion());
 				}
 			}
 		}

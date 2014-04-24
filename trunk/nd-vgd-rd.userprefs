@@ -1,8 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Procedural\GenerateLevel.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Characters\Player\PlayerStats.cs">
     <Files>
-      <File FileName="Assets\Scripts\Procedural\GenerateLevel.cs" Line="31" Column="24" />
+      <File FileName="Assets\Scripts\Items\WeaponStats.cs" Line="38" Column="5" />
+      <File FileName="Assets\Scripts\Characters\Player\PlayerStats.cs" Line="12" Column="49" />
+      <File FileName="Assets\Scripts\Characters\CharacterStats.cs" Line="8" Column="40" />
+      <File FileName="Assets\Scripts\Characters\Enemies\EnemyStats.cs" Line="30" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -11,8 +11,6 @@ public class EnemyStats : CharacterStats {
 		// we eventually want to read this data in from the XML files
 		totalHealth = 2;
 		currentHealth = 2;
-		currentWeapon = 1;
-		currentShield = 0;
 		currentSpell = 0;
 	}
 	
@@ -22,6 +20,7 @@ public class EnemyStats : CharacterStats {
 		if (currentHealth <= 0)
 		{
 			// play death animation
+			GameObject.Destroy(transform.root.gameObject);
 			
 			// either deactivate this character (turn off AI and ragdoll it) or destroy the GameObject
 			
