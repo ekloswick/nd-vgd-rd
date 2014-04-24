@@ -24,7 +24,6 @@ public class PlayerController : MonoBehaviour {
 		myAnim = GetComponent<Animator> ();
 		myAnim.SetBool("blocking", false);
 		myAnim.SetBool ("attacking", false);
-		myAnim.SetBool("walking", false);
 
 		rigidbody.freezeRotation = true;
 	
@@ -60,6 +59,14 @@ public class PlayerController : MonoBehaviour {
 		//Moving the player based on the left stick
 		float xinput = Input.GetAxis (MyInput.L_XAxisname);
 		float zinput = -1 * Input.GetAxis (MyInput.L_YAxisname);
+
+		//Turn the player based on the right stick
+		float xlook = Input.GetAxis (MyInput.L_XAxisname);
+		float zlook = Input.GetAxis (MyInput.L_YAxisname);
+
+		//Setting the values in the Animation Blend Tree
+		myAnim.SetFloat("forward", xinput);
+		myAnim.SetFloat("strafe", zinput);
 		
 		// alternate, non-Xbox controller controls
 		if (Input.GetKey (KeyCode.W))
@@ -69,9 +76,9 @@ public class PlayerController : MonoBehaviour {
 
 		// alternate, non-Xbox controller controls
 		if (Input.GetKey (KeyCode.A))
-			zinput += 0.02f;
+			xinput = -1.0f;
 		else if (Input.GetKey(KeyCode.D))
-			zinput += 0.02f;
+			xinput = 1.0f;
 
 		if((Mathf.Abs (xinput) > 0.01f || Mathf.Abs (zinput) > 0.01f) && !myAnim.GetCurrentAnimatorStateInfo(0).IsName("Blocking") && !myAnim.GetCurrentAnimatorStateInfo(0).IsName("Attacking")){
 			lookangle = (Mathf.Atan2 (xinput, zinput) * Mathf.Rad2Deg) + CameraController.angle;
