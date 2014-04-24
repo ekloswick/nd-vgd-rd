@@ -3,7 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PlayerStats : CharacterStats {
-	
+
+	public GameObject righthand;
+	public GameObject lefthand;
+
 	private Animator myAnim;
 	
 	[HideInInspector]
