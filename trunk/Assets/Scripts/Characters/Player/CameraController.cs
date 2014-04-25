@@ -4,15 +4,16 @@ using System.Collections;
 public class CameraController : MonoBehaviour {
 
 	public GameObject player;
-	public float speed;
 
-	private float cameraHeight = 5f;
-	public static float angle = 0;
+	public float cameraHeight;
 	private float direction;
+
+	private float maxheight = 20f;
+	private float minheight = 9f;
 
 	// Use this for initialization
 	void Start () {
-		transform.eulerAngles = new Vector3 (60f, 0f, 0f);
+		transform.eulerAngles = new Vector3 (75f, 0f, 0f);
 	}
 	
 	// Update is called once per frame
@@ -20,22 +21,22 @@ public class CameraController : MonoBehaviour {
 
 		Vector3 playerpos = player.transform.position;
 
-		transform.position = new Vector3 (playerpos.x, cameraHeight, playerpos.z - 2);
+		transform.position = new Vector3 (playerpos.x, cameraHeight, playerpos.z - 2.5f);
 		
 		// added for playable core, can be commented out afterwards
 		if (Input.GetButton(MyInput.A_name) || Input.GetKey (KeyCode.Q))
 		{
 			cameraHeight += 0.1f;
 			
-			if (cameraHeight > 15f)
-				cameraHeight = 15f;
+			if (cameraHeight > maxheight)
+				cameraHeight = maxheight;
 		}
 		else
 		{
 			cameraHeight -= 0.1f;
 			
-			if (cameraHeight < 5f)
-				cameraHeight = 5f;
+			if (cameraHeight < minheight)
+				cameraHeight = minheight;
 		}
 		
 	}
