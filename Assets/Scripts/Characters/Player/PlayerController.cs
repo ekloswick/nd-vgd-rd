@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour {
 			transform.Rotate(0f, rotatespeed * direction * Time.deltaTime, 0f);
 		}
 
-		print ((currangle%360) + ", " + (newangle%360));
+
 	}
 
 	void movePlayer(){
@@ -115,12 +115,15 @@ public class PlayerController : MonoBehaviour {
 		else if (Input.GetKey(KeyCode.D))
 			xinput = 1.0f;
 		
-		//Setting the values in the Animation Blend Tree
-		myAnim.SetFloat("forward", xinput);
-		myAnim.SetFloat("strafe", zinput);
-		
 		Vector3 newmotion = new Vector3 (xinput, 0f, zinput);
 		
 		rigidbody.MovePosition (transform.position + (speed * newmotion * Time.deltaTime));
+
+		if(Mathf.Abs (xinput) > 0.1f || Mathf.Abs (zinput) > 0.1f){
+			myAnim.SetBool("walking", true);
+		} else {
+			myAnim.SetBool("walking", false);
+		}
+
 	}
 }
