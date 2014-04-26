@@ -60,6 +60,13 @@ public class GenerateLevel : MonoBehaviour
 	{
 		if (Input.GetKeyDown (KeyCode.E))
 			Application.LoadLevel("mainGame");
+			
+		/*if(Input.GetKeyDown(KeyCode.G)){
+			foreach (GameObject enemy in enemyList)
+			{
+				enemy.GetComponent<EnemyStats>().currentHealth--;
+			}
+		}*/
 	}
 	
 	public void proceedToNextLevel()

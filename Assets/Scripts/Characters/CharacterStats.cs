@@ -25,21 +25,27 @@ public class CharacterStats : MonoBehaviour {
 	
 	public void isAttackedBy(GameObject source)
 	{
-		if (source.transform.parent.tag == "Player")
+		if (source.transform.root.tag == "Player")
 		{
 			// add in any resistances/damage reductions here
 			
 			// the actual damage
 			currentHealth -= source.GetComponent<WeaponStats>().damage;
+			
 		}
-		else if (source.transform.parent.tag == "Enemy")
+		else if (source.transform.root.tag == "Enemy")
 		{
 			// add in any resistances/damage reductions here
 			
 			// the actual damage
 			currentHealth -= source.GetComponent<EnemyStats>().attackDamage;
+			
 		}
 		
+		// make sure negative health isn't a thing
+		if (currentHealth < 0)
+			currentHealth = 0;
+			
 		return;
 	}
 }

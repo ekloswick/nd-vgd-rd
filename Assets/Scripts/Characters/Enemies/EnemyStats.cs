@@ -26,9 +26,11 @@ public class EnemyStats : CharacterStats {
 		if (currentHealth <= 0)
 		{
 			// play death animation
-			GameObject.Destroy(transform.root.gameObject);
+			//GameObject.Destroy(transform.root.gameObject);
 			
 			// either deactivate this character (turn off AI and ragdoll it) or destroy the GameObject
+			transform.gameObject.GetComponent<EnemyAI>().enabled = false;
+			transform.rigidbody.freezeRotation = false;
 			
 		}
 	}
