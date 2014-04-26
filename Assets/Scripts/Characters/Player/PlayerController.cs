@@ -31,13 +31,13 @@ public class PlayerController : MonoBehaviour {
 	void Update(){
 		float triggerval = Input.GetAxis (MyInput.Triggers_name);
 
-		if(triggerval < -0.9 || Input.GetKey (KeyCode.Mouse0)){
+		if(triggerval < -0.9 || Input.GetKey (KeyCode.Space)){
 			myAnim.SetBool("attacking", true);
 		} else {
 			myAnim.SetBool("attacking", false);
 		}
 
-		if(triggerval > 0.9 || Input.GetKey (KeyCode.Mouse1)){
+		if(triggerval > 0.9 || Input.GetKey (KeyCode.LeftShift)){
 			myAnim.SetBool("blocking", true);
 		} else {
 			myAnim.SetBool("blocking", false);
@@ -63,10 +63,23 @@ public class PlayerController : MonoBehaviour {
 			rotatespeed = notblockrotate;
 		}
 			
-		//Turn the player based on the right stick
+		//Turn the player based on the right stick or mouse movement
 		float xlook = Input.GetAxis (MyInput.R_XAxisname);
 		float zlook = -1 * Input.GetAxis (MyInput.R_YAxisname);
+
+		// alternate, non-Xbox controller controls
+		// alternate, non-Xbox controller controls
+		if (Input.GetKey (KeyCode.LeftArrow))
+			xlook = -1.0f;
+		else if (Input.GetKey (KeyCode.RightArrow))
+			xlook = 1.0f;
 		
+		// alternate, non-Xbox controller controls
+		if (Input.GetKey (KeyCode.UpArrow))
+			zlook = 1.0f;
+		else if (Input.GetKey(KeyCode.DownArrow))
+			zlook = -1.0f;
+
 		float newangle = -1 * (Mathf.Atan2 (zlook, xlook) * Mathf.Rad2Deg - 90);
 		float currangle =  transform.eulerAngles.y;
 
