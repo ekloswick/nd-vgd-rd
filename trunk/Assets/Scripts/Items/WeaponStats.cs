@@ -12,6 +12,7 @@ public class WeaponStats : MonoBehaviour {
 	void Start ()
 	{
 		playerReference = GameObject.FindWithTag("Player");
+		
 		// when weapon is created, give it random properties
 		damage = Random.Range(1+playerReference.GetComponent<PlayerStats>().currentLevel, 1+playerReference.GetComponent<PlayerStats>().currentLevel*2);
 		cooldown = Random.Range (1,5) / 4f;
@@ -35,7 +36,7 @@ public class WeaponStats : MonoBehaviour {
 				
 				other.gameObject.GetComponent<EnemyStats>().isAttackedBy(playerReference.GetComponent<PlayerStats>().currentWeapon);
 				
-				Debug.Log ("HIT, Damage: " + damage + ", Enemy HP left: " + other.gameObject.GetComponent<EnemyStats>().currentHealth);
+				//Debug.Log ("HIT, Damage: " + damage + ", Enemy HP left: " + other.gameObject.GetComponent<EnemyStats>().currentHealth);
 			}
 		}
 	}
