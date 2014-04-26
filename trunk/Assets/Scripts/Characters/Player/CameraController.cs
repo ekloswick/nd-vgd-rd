@@ -8,13 +8,13 @@ public class CameraController : MonoBehaviour {
 	public float cameraHeight;
 	private float direction;
 
-	private float maxheight = 20f;
-	private float minheight;
+	//private float maxheight = 20f;
+	//private float minheight;
 
 	// Use this for initialization
 	void Start () {
 		transform.eulerAngles = new Vector3 (75f, 0f, 0f);
-		minheight = cameraHeight;
+		//minheight = cameraHeight;
 	}
 	
 	// Update is called once per frame
