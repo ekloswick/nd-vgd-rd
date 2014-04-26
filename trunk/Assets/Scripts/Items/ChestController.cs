@@ -23,9 +23,9 @@ public class ChestController : MonoBehaviour {
 		Vector3 playerpos = player.transform.position;
 		Vector3 chestpos = gameObject.transform.position;
 
-		if(Vector3.Distance(playerpos, chestpos) < 1){
+		if(Vector3.Distance(playerpos, chestpos) < 1 && myAnim.GetCurrentAnimatorStateInfo(0).IsName("Closed")){
 			popup.text = "Press A (Xbox) / Q (Keyboard) to open chest";
-			if(Input.GetKeyDown(KeyCode.Q) || Input.GetAxis(MyInput.A_name) > 0.1f){
+			if(Input.GetKeyDown(KeyCode.Q) || Input.GetButton(MyInput.A_name)){
 				myAnim.SetBool("isOpen", true);
 			}
 		} else {
