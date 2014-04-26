@@ -12,7 +12,6 @@ public class GenerateLevel : MonoBehaviour
 	public int tileStyle = 1; // 0 for dev, 1 for default dungeon
 	private int[] startingLocation;
 	private int[,] levelMatrix;
-	private List<int[]> rooms = new List<int[]>();
 	
 	// tiles
 	private GameObject basicTile,
@@ -20,13 +19,21 @@ public class GenerateLevel : MonoBehaviour
 						wallTile,
 						enemyTile,
 						treasureTile,
-						trapTile;
+						trapTile,
+						exitTile;
+	
+	// holders for gameobjects
+	private List<GameObject> tileList = new List<GameObject>();
+	private List<GameObject> enemyList = new List<GameObject>();
+	private List<GameObject> chestList = new List<GameObject>();
+	private List<GameObject> itemList = new List<GameObject>();
+	private List<int[]> rooms = new List<int[]>();
 	
 	// enemies
-	private GameObject goblin;
+	private GameObject goblinObject;
 	
 	// items
-	private GameObject chest;
+	private GameObject chestObject;
 	
 	// spawn chances	
 	private float enemyChance = 0.01f,
@@ -42,6 +49,32 @@ public class GenerateLevel : MonoBehaviour
 		
 		Debug.Log (Random.seed);
 		
+		
+		setupDungeon();
+	}
+	
+	// Update is called once per frame
+	void Update ()
+	{
+		if (Input.GetButtonDown(MyInput.B_name) || Input.GetKeyDown (KeyCode.E))
+		{
+			//Application.LoadLevel("enemiesTest");
+			
+		}
+	}
+	
+	public void proceedToNextLevel()
+	{
+		GameObject.FindWithTag("Player").GetComponent<PlayerStats>().currentLevel++;
+		
+		levelSize += 4;
+		
+		clearDungeon();
+		setupDungeon();
+	}
+	
+	void setupDungeon()
+	{
 		levelMatrix = new int[levelSize,levelSize];
 		
 		// load in prefabs
@@ -66,16 +99,10 @@ public class GenerateLevel : MonoBehaviour
 		GameObject.FindWithTag("Player").transform.position = new Vector3(startingLocation[0], 0, startingLocation[1]);
 		
 		Debug.Log("Done!");
+		
+		return;
 	}
 	
-	// Update is called once per frame
-	void Update ()
-	{
-		if (Input.GetButtonDown(MyInput.B_name) || Input.GetKeyDown (KeyCode.E))
-		{
-			Application.LoadLevel("enemiesTest");
-		}
-	}
 	
 	// loads in the appropriate prefabs
 	void loadPrefabs()
@@ -90,6 +117,7 @@ public class GenerateLevel : MonoBehaviour
 			enemyTile = (GameObject)Resources.Load ("Prefabs/Dev Tiles/Enemy");
 			treasureTile = (GameObject)Resources.Load ("Prefabs/Dev Tiles/Treasure");
 			trapTile = (GameObject)Resources.Load ("Prefabs/Dev Tiles/Trap");
+			//exitTile = (GameObject)Resources.Load ("Prefabs/Dev Tiles/Exit");
 		}
 		else if (tileStyle == 1)
 		{
@@ -97,23 +125,48 @@ public class GenerateLevel : MonoBehaviour
 			basicTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/Basic Textured");
 			wallTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/Wall Textured");
 			trapTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/Trap Textured");
+			//exitTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/Exit Textured");
 		}
 		
+		exitTile = (GameObject)Resources.Load ("Prefabs/Dev Tiles/Exit");
+		
 		// enemies
-		goblin = (GameObject)Resources.Load("Prefabs/Enemies/Goblin");
+		goblinObject = (GameObject)Resources.Load("Prefabs/Enemies/Goblin");
 		
 		// items
-		chest = (GameObject)Resources.Load ("Prefabs/Items/Chest");
+		chestObject = (GameObject)Resources.Load ("Prefabs/Items/Chest");
 	}
 	
 	// fills dungeon matrix with empty "0" values (correspond to "darkness" tiles)
 	void clearDungeon()
 	{
+		foreach (GameObject tile in tileList)
+		{
+			GameObject.Destroy(tile);
+		}
+		
+		foreach (GameObject enemy in enemyList)
+		{
+			GameObject.Destroy(enemy);
+		}
+		
+		foreach (GameObject chest in chestList)
+		{
+			GameObject.Destroy(chest);
+		}
+		
+		foreach (GameObject item in itemList)
+		{
+			GameObject.Destroy(item);
+		}
+	
+		rooms.Clear();
+	
 		for (int x = 0; x < levelMatrix.GetLength(0); x++)
 		{
 			for (int z = 0; z < levelMatrix.GetLength(1); z++)
 			{
-				levelMatrix[x,z] = 0;
+				levelMatrix[x,z] = -1;
 			}
 		}
 		
@@ -123,8 +176,10 @@ public class GenerateLevel : MonoBehaviour
 	// seeds, grows, and connects rooms to form the dungeon
 	void generateDungeon()
 	{
+		//bool isExitSet = false;
+		
 		// randomly choose a corner or middle to place the starting room
-		switch (Random.Range(1,6))
+		switch (Random.Range(1,5))
 		{
 			// top left
 			case 1:
@@ -143,9 +198,9 @@ public class GenerateLevel : MonoBehaviour
 				startingLocation = new int[2] {3*levelSize/4, levelSize/4};
 				break;
 			// middle
-			default:
+			/*case 5:
 				startingLocation = new int[2] {levelSize/2, levelSize/2};
-				break;
+				break;*/
 		}
 		
 		// add the starting room to rooms list
@@ -177,6 +232,8 @@ public class GenerateLevel : MonoBehaviour
 			}
 		}
 		
+		int[] furthestRoomFromStart = {startingLocation[0], startingLocation[1]};
+		
 		// create each room
 		foreach (int[] item in rooms)
 		{
@@ -184,13 +241,26 @@ public class GenerateLevel : MonoBehaviour
 			
 			//levelMatrix[item[0], item[1]] = 5;
 			if (rooms.IndexOf(item) == 0)
+			{
 				setupStartingRoom(item[0], item[1]);
+			}
 			else
+			{
 				expandRoom(item[0], item[1], Random.Range (4, 4+roomSize));
+				
+				// calculate furthest room from start
+				if (distance(startingLocation, furthestRoomFromStart) < distance(startingLocation, item))
+				{
+					furthestRoomFromStart = new int[2] {item[0], item[1]};
+				}
+			}
 		}
 		
 		// create corridors
 		generateCorridors();
+		
+		// set ending tile
+		levelMatrix[furthestRoomFromStart[0], furthestRoomFromStart[1]] = 99;
 		
 		return;
 	}
@@ -204,6 +274,28 @@ public class GenerateLevel : MonoBehaviour
 			{
 				if (Mathf.Abs(i+j) <= 3)
 					levelMatrix[x+i,z+j] = 11;
+			}
+		}
+	}
+	
+	// creates the starting room that the player starts in
+	void setupEndingRoom()
+	{
+		// setup area to proceed to next level
+		while (true)
+		{
+			int[] end = { Random.Range(0,levelMatrix.GetLength(0)), Random.Range(0,levelMatrix.GetLength(1)) };
+				                                                                   
+			if (distance(end, startingLocation) > levelMatrix.GetLength(0)/1.5f)
+			{
+				for (int i = -2; i < 2; i++)
+				{
+					for (int j = -2; j < 2; j++)
+					{
+						levelMatrix[end[0]+i,end[1]+j] = 99;
+					}
+				}
+				break;
 			}
 		}
 	}
@@ -284,6 +376,7 @@ public class GenerateLevel : MonoBehaviour
 		
 		// create overarching corridor to hopefully make some cheap loops
 		spawnCorridor(rooms[roomOne][0], rooms[roomOne][1], rooms[roomTwo][0], rooms[roomTwo][1]);
+		
 		
 		return;
 	}
@@ -523,11 +616,13 @@ public class GenerateLevel : MonoBehaviour
 				{
 					GameObject obj = getDevTile(levelMatrix[x,z]);
 					obj.transform.position = new Vector3(x, 0.0f, z);
+					tileList.Add(obj);
 				}
 				else if (tileStyle == 1)
 				{
 					GameObject obj = getDungeonTile(levelMatrix[x,z]);
 					obj.transform.position = new Vector3(x, 0.0f, z);
+					tileList.Add(obj);
 				}
 				
 			}
@@ -538,22 +633,24 @@ public class GenerateLevel : MonoBehaviour
 	
 	// actually creates enemies, chests, traps, and other things
 	void populateDungeon()
-	{
-		GameObject obj;
-		
+	{		
 		for (int x = 0; x < levelMatrix.GetLength(0); x++)
 		{
 			for (int z = 0; z < levelMatrix.GetLength(1); z++)
 			{
+				GameObject obj;
+				
 				// spawns enemies on enemy tiles (will eventually be weighted randomness, currently is just goblins)
 				if (levelMatrix[x,z] == 13)
 				{
-					obj = (GameObject)Instantiate(goblin, new Vector3(x, 0.2f, z), new Quaternion());
+					obj = (GameObject)Instantiate(goblinObject, new Vector3(x, 0.2f, z), new Quaternion());
+					enemyList.Add(obj);
 				}
 				// spawns treasure chests
 				else if (levelMatrix[x,z] == 14)
 				{
-					obj = (GameObject)Instantiate(chest, new Vector3(x, 0.15f, z), new Quaternion());
+					obj = (GameObject)Instantiate(chestObject, new Vector3(x, 0.15f, z), new Quaternion() * Quaternion.Euler(0f,Random.Range(0,4)*90f,0f) );
+					chestList.Add(obj);
 				}
 			}
 		}
@@ -566,6 +663,8 @@ public class GenerateLevel : MonoBehaviour
 	{
 		switch (tileNum)
 		{
+			case 0:
+				return (GameObject)Instantiate(wallTile);
 			case 5:
 				return (GameObject)Instantiate(basicTile);
 			case 11:
@@ -576,8 +675,8 @@ public class GenerateLevel : MonoBehaviour
 				return (GameObject)Instantiate(treasureTile);
 			case 15:
 				return (GameObject)Instantiate(trapTile);
-			case 0:
-				return (GameObject)Instantiate(wallTile);
+			case 99:
+				return (GameObject)Instantiate(exitTile);
 			default:
 				return GameObject.CreatePrimitive(PrimitiveType.Sphere);
 		}
@@ -588,6 +687,8 @@ public class GenerateLevel : MonoBehaviour
 	{
 		switch (tileNum)
 		{
+			case 0:
+				return (GameObject)Instantiate(wallTile);
 			case 5:
 			case 11:
 			case 13:
@@ -595,8 +696,8 @@ public class GenerateLevel : MonoBehaviour
 				return (GameObject)Instantiate(basicTile);
 			case 15:
 				return (GameObject)Instantiate(trapTile);
-			case 0:
-				return (GameObject)Instantiate(wallTile);
+			case 99:
+				return (GameObject)Instantiate(exitTile);
 			default:
 				return GameObject.CreatePrimitive(PrimitiveType.Sphere);
 		}

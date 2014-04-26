@@ -25,7 +25,7 @@ public class CameraController : MonoBehaviour {
 		transform.position = new Vector3 (playerpos.x, cameraHeight, playerpos.z - 2.5f);
 		
 		// added for playable core, can be commented out afterwards
-		if (Input.GetButton(MyInput.A_name) || Input.GetKey (KeyCode.Q))
+		/*if (Input.GetButton(MyInput.A_name) || Input.GetKey (KeyCode.Q))
 		{
 			cameraHeight += 0.1f;
 			
@@ -38,7 +38,7 @@ public class CameraController : MonoBehaviour {
 			
 			if (cameraHeight < minheight)
 				cameraHeight = minheight;
-		}
+		}*/
 		
 	}
 }

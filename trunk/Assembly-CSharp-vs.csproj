@@ -55,11 +55,13 @@
      <Compile Include="Assets\Scripts\Characters\Player\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Characters\Player\PlayerStats.cs" />
      <Compile Include="Assets\Scripts\GUI\InGameGUI.cs" />
+     <Compile Include="Assets\Scripts\GUI\MainMenu.cs" />
      <Compile Include="Assets\Scripts\GUI\PlayerHUD.cs" />
      <Compile Include="Assets\Scripts\General\LockMouse.cs" />
      <Compile Include="Assets\Scripts\Items\WeaponStats.cs" />
      <Compile Include="Assets\Scripts\ObjectDefintions\SmellPoint.cs" />
      <Compile Include="Assets\Scripts\Procedural\GenerateLevel.cs" />
+     <Compile Include="Assets\Scripts\Procedural\LevelTransition.cs" />
      <Compile Include="Assets\Scripts\Procedural\ObjectDatabase.cs" />
      <Compile Include="Assets\Scripts\TempScript.cs" />
      <None Include="Assets\Resources\XML\enemies.xml" />

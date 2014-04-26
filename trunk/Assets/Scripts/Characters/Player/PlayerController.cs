@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		//Only rotate if the stick is moved and there is a angle difference > 5
-		if(((Mathf.Abs (xlook) > 0.5f) || (Mathf.Abs (zlook) > 0.5f)) && (Mathf.Abs (difference) > 15f)){
+		if(((Mathf.Abs (xlook) > 0.5f) || (Mathf.Abs (zlook) > 0.5f)) && (Mathf.Abs (difference) > 5f)){
 			transform.Rotate(0f, rotatespeed * direction * Time.deltaTime, 0f);
 		}
 
