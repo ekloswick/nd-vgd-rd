@@ -3,8 +3,6 @@ using System.Collections;
 
 public class PlayerHUD : MonoBehaviour {
 
-	public GUIText temptext;
-
 	public GUITexture guiref;
 	public GameObject player;
 	public GameObject mycamera;
