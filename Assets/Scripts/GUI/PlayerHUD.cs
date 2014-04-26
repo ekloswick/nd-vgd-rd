@@ -60,6 +60,7 @@ public class PlayerHUD : MonoBehaviour {
 			currentx += xscale;
 		}
 
+		/*
 		if(Input.GetKeyDown(KeyCode.Keypad0)){
 			player.GetComponent<PlayerStats> ().currentHealth --;
 		}
@@ -67,6 +68,7 @@ public class PlayerHUD : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.KeypadPeriod)){
 			player.GetComponent<PlayerStats> ().currentHealth ++;
 		}
+		*/
 
 		refreshItemsPosition ();
 	}

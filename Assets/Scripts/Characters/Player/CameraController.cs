@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour {
 
 		Vector3 playerpos = player.transform.position;
 
-		transform.position = new Vector3 (playerpos.x - 2.5f, cameraHeight, playerpos.z - 2.5f);
+		transform.position = new Vector3 (playerpos.x - 4.5f, cameraHeight, playerpos.z - 4.5f);
 		
 		// added for playable core, can be commented out afterwards
 		/*if (Input.GetButton(MyInput.A_name) || Input.GetKey (KeyCode.Q))
