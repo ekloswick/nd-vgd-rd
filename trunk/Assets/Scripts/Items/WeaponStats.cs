@@ -13,7 +13,7 @@ public class WeaponStats : MonoBehaviour {
 	{
 		playerReference = GameObject.FindWithTag("Player");
 		// when weapon is created, give it random properties
-		damage = Random.Range(1+playerReference.GetComponent<PlayerStats>().currentLevel, playerReference.GetComponent<PlayerStats>().currentLevel*2);
+		damage = Random.Range(1+playerReference.GetComponent<PlayerStats>().currentLevel, 1+playerReference.GetComponent<PlayerStats>().currentLevel*2);
 		cooldown = Random.Range (1,5) / 4f;
 	}
 	
