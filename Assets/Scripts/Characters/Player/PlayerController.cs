@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour {
 			zlook = -1.0f;
 
 		float newangle = -1 * (Mathf.Atan2 (zlook, xlook) * Mathf.Rad2Deg - 90);
-		float currangle =  transform.eulerAngles.y;
+		float currangle =  transform.eulerAngles.y - 45f;
 
 		//First make sure both angles are positive by adding 360
 		newangle += 360;
@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour {
 
 	}
 
-	void movePlayer(){
+	void movePlayer(){		
 		//Moving the player based on the left stick
 		float xinput = Input.GetAxis (MyInput.L_XAxisname);
 		float zinput = -1 * Input.GetAxis (MyInput.L_YAxisname);
@@ -128,7 +128,12 @@ public class PlayerController : MonoBehaviour {
 		else if (Input.GetKey(KeyCode.D))
 			xinput = 1.0f;
 		
-		Vector3 newmotion = new Vector3 (xinput, 0f, zinput);
+		if (Mathf.Abs(zinput) == Mathf.Abs(xinput))	{
+			zinput *= 0.75f;
+			xinput *= 0.75f;
+		}
+		
+		Vector3 newmotion = Quaternion.Euler(0, 45, 0) * new Vector3 (xinput, 0f, zinput);
 		
 		rigidbody.MovePosition (transform.position + (speed * newmotion * Time.deltaTime));
 

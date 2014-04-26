@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\GameFlow.cs" />
      <Compile Include="Assets\Scripts\Characters\CharacterStats.cs" />
      <Compile Include="Assets\Scripts\Characters\Enemies\EnemyAI.cs" />
      <Compile Include="Assets\Scripts\Characters\Enemies\EnemyStats.cs" />
@@ -58,6 +59,7 @@
      <Compile Include="Assets\Scripts\GUI\MainMenu.cs" />
      <Compile Include="Assets\Scripts\GUI\PlayerHUD.cs" />
      <Compile Include="Assets\Scripts\General\LockMouse.cs" />
+     <Compile Include="Assets\Scripts\Items\ChestController.cs" />
      <Compile Include="Assets\Scripts\Items\WeaponStats.cs" />
      <Compile Include="Assets\Scripts\ObjectDefintions\SmellPoint.cs" />
      <Compile Include="Assets\Scripts\Procedural\GenerateLevel.cs" />

@@ -37,7 +37,7 @@ public class MainMenu : MonoBehaviour {
 			index = 1;
 		if(index < 0)
 			index = 0;
-
+			
 		for(int i = 0; i < menuitems; i++){
 			if(i == index)
 				menu[i].color = Color.red;
@@ -49,7 +49,7 @@ public class MainMenu : MonoBehaviour {
 			if(index == 1){
 				Application.Quit();
 			} else {
-				Application.LoadLevel("enemiesTest");
+				Application.LoadLevel("mainGame");
 			}
 		}
 

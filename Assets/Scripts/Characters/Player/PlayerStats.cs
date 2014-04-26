@@ -45,10 +45,19 @@ public class PlayerStats : CharacterStats {
 	// Update is called once per frame
 	void Update ()
 	{
+		//lose the game
 		if (currentHealth <= 0)
 		{
-			//lose the game
+			foreach (GUIText text in GameObject.Find("GameOverText").GetComponentsInChildren<GUIText>())
+				text.guiText.enabled = true;
 			
+			Time.timeScale = 0.0f;
+			
+			if (Input.GetAxis (MyInput.Triggers_name) < -0.9 || Input.GetKeyDown (KeyCode.Space))
+			{
+				Time.timeScale = 1.0f;
+				Application.LoadLevel("mainGame");
+			}
 		}
 	}
 	

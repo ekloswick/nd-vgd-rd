@@ -4,12 +4,18 @@ using System.Collections.Generic;
 
 public class GenerateLevel : MonoBehaviour
 {
+	// spawn chances	
+	public float enemyChance = 0.01f,
+					treasureChance = 0.003f,
+					trapChance = 0.015f;
+
 	// world related variables
 	public int levelSize = 50;
 	public int roomSize = 5;
 	public float tileSpawnChance = 0.75f;
 	public float roomSpawnChance = 0.008f;
-	public int tileStyle = 1; // 0 for dev, 1 for default dungeon
+	
+	public int tileStyle; // 0 for dev, 1 for default dungeon
 	private int[] startingLocation;
 	private int[,] levelMatrix;
 	
@@ -35,10 +41,6 @@ public class GenerateLevel : MonoBehaviour
 	// items
 	private GameObject chestObject;
 	
-	// spawn chances	
-	private float enemyChance = 0.01f,
-					treasureChance = 0.003f,
-					trapChance = 0.015f;
 	
 	// Use this for initialization
 	void Start ()
@@ -56,18 +58,15 @@ public class GenerateLevel : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if (Input.GetButtonDown(MyInput.B_name) || Input.GetKeyDown (KeyCode.E))
-		{
-			//Application.LoadLevel("enemiesTest");
-			
-		}
+		if (Input.GetKeyDown (KeyCode.E))
+			Application.LoadLevel("mainGame");
 	}
 	
 	public void proceedToNextLevel()
 	{
 		GameObject.FindWithTag("Player").GetComponent<PlayerStats>().currentLevel++;
 		
-		levelSize += 4;
+		levelSize += 2;
 		
 		clearDungeon();
 		setupDungeon();

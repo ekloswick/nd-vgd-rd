@@ -13,7 +13,7 @@ public class CameraController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		transform.eulerAngles = new Vector3 (75f, 0f, 0f);
+		transform.eulerAngles = new Vector3 (60f, 45f, 0f);
 		//minheight = cameraHeight;
 	}
 	
@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour {
 
 		Vector3 playerpos = player.transform.position;
 
-		transform.position = new Vector3 (playerpos.x, cameraHeight, playerpos.z - 2.5f);
+		transform.position = new Vector3 (playerpos.x - 2.5f, cameraHeight, playerpos.z - 2.5f);
 		
 		// added for playable core, can be commented out afterwards
 		/*if (Input.GetButton(MyInput.A_name) || Input.GetKey (KeyCode.Q))
