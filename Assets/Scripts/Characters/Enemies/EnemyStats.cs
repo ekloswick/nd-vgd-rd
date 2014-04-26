@@ -4,6 +4,8 @@ using System.Collections;
 public class EnemyStats : CharacterStats {
 	
 	//private Animator myAnim;
+	public int attackDamage;
+	public float attackCooldown;
 	
 	// Use this for initialization
 	void Start ()
@@ -12,6 +14,10 @@ public class EnemyStats : CharacterStats {
 		totalHealth = 2;
 		currentHealth = 2;
 		currentSpell = 0;
+		
+		attackDamage = 1;
+		attackCooldown = 1;
+		
 	}
 	
 	// Update is called once per frame

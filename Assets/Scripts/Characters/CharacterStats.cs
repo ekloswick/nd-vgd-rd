@@ -23,12 +23,22 @@ public class CharacterStats : MonoBehaviour {
 		
 	}
 	
-	public void isAttackedBy(GameObject weapon)
+	public void isAttackedBy(GameObject source)
 	{
-		// add in any resistances/damage reductions here
-		
-		// the actual damage
-		currentHealth -= weapon.GetComponent<WeaponStats>().damage;
+		if (source.transform.parent.tag == "Player")
+		{
+			// add in any resistances/damage reductions here
+			
+			// the actual damage
+			currentHealth -= source.GetComponent<WeaponStats>().damage;
+		}
+		else if (source.transform.parent.tag == "Enemy")
+		{
+			// add in any resistances/damage reductions here
+			
+			// the actual damage
+			currentHealth -= source.GetComponent<EnemyStats>().attackDamage;
+		}
 		
 		return;
 	}

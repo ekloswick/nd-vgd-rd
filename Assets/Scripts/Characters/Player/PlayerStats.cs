@@ -30,8 +30,6 @@ public class PlayerStats : CharacterStats {
 		currentShield = (GameObject)Instantiate(Resources.Load("Prefabs/Items/Shield"));
 		currentShield.transform.parent = GameObject.Find("Left_Forearm").transform;
 		currentShield.transform.position = currentShield.transform.parent.position + new Vector3(-.05f,.075f,.075f);
-		//lefthand.transform.position = lefthand.transform.parent.position;
-		//lefthand.transform.rotation = lefthand.transform.parent.rotation;
 		currentShield.transform.rotation = currentShield.transform.parent.rotation * Quaternion.Euler(40f, 160f, 80f);
 		
 		currentSpell = 0;
