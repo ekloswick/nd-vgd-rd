@@ -87,11 +87,16 @@ public class PlayerHUD : MonoBehaviour {
 		mysword.transform.localEulerAngles = new Vector3 (270f, 0f, 0f);
 		myshield.transform.localEulerAngles = new Vector3 (270f, 90f, 0f);
 		
-		mysword.transform.localScale = new Vector3 (0.05f, 0.01f, 0.15f);
-		myshield.transform.localScale = new Vector3 (0.02f, 0.04f, 0.04f);
+		mysword.transform.localScale = new Vector3 (0.05f, 0.001f, 0.15f);
+		myshield.transform.localScale = new Vector3 (0.001f, 0.04f, 0.04f);
 
 		refreshItemsPosition ();
 
+		mysword.GetComponent<MeshRenderer> ().castShadows = false;
+		myshield.GetComponent<MeshRenderer> ().castShadows = false;
+
+		mysword.GetComponent<MeshRenderer> ().receiveShadows = false;
+		myshield.GetComponent<MeshRenderer> ().receiveShadows = false;
 	}
 
 	void refreshItemsPosition(){
