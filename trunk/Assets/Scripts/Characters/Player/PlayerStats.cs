@@ -35,9 +35,11 @@ public class PlayerStats : CharacterStats {
 		currentShield.transform.rotation = currentShield.transform.parent.rotation * Quaternion.Euler(40f, 160f, 80f);
 		
 		currentSpell = 0;
-		
+
+		GameObject.Find ("GeneralScripts").GetComponent<PlayerHUD> ().updateItems (currentWeapon, currentShield);
+
 		currentLevel = 1;
-		
+
 		// initialize "smellPoints" to allow smarter enemy chasing
 		InvokeRepeating("UpdateSmellPoints", 0, 0.5f);
 	}
