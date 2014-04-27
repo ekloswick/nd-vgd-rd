@@ -206,6 +206,9 @@ public class GenerateLevel : MonoBehaviour
 				levelMatrix[x,z] = -1;
 			}
 		}
+
+		//remove the "proceed to next level" message
+		GameObject.Find ("Exit(Clone)").GetComponent<LevelTransition> ().popup.text = "";
 		
 		return;
 	}

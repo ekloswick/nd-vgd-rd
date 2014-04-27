@@ -4,7 +4,7 @@ using System.Collections;
 public class LevelTransition : MonoBehaviour {
 
 	public GUIText popupref;
-	private GUIText popup;
+	public GUIText popup;
 
 	// Use this for initialization
 	void Start ()

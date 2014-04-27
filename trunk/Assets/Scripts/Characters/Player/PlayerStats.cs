@@ -31,6 +31,14 @@ public class PlayerStats : CharacterStats {
 		currentWeapon.transform.position = currentWeapon.transform.parent.position + new Vector3(0.5f,0.2f,0f);
 		weaponpos = currentWeapon.transform.localPosition;
 		weaponrot = currentWeapon.transform.localEulerAngles;
+
+		//disable the non-trigger collider for the sword in hand
+		BoxCollider[] colliders = currentWeapon.GetComponents<BoxCollider> ();
+		foreach (BoxCollider coll in colliders){
+			if(!coll.isTrigger){
+				coll.enabled = false;
+			}
+		}
 		
 		currentShield = (GameObject)Instantiate(Resources.Load("Prefabs/Items/Shield"));
 		currentShield.transform.parent = GameObject.Find("Left_Forearm").transform;
@@ -102,6 +110,22 @@ public class PlayerStats : CharacterStats {
 		oldsword.transform.parent = null;
 		currentWeapon.transform.parent = GameObject.Find("Right_Forearm").transform;
 
-		oldsword.rigidbody.velocity = new Vector3 (1f, 5f, 1f);
+		//disable the non-trigger collider for the sword in hand
+		BoxCollider[] colliders = currentWeapon.GetComponents<BoxCollider> ();
+		foreach (BoxCollider coll in colliders){
+			if(!coll.isTrigger){
+				coll.enabled = false;
+			}
+		}
+
+		//enable the non-trigger collider for the sword on ground
+		colliders = oldsword.GetComponents<BoxCollider> ();
+		foreach (BoxCollider coll in colliders){
+			if(!coll.isTrigger){
+				coll.enabled = true;
+			}
+		}
+
+		oldsword.rigidbody.velocity = new Vector3 (1f, 3f, 1f);
 	}
 }

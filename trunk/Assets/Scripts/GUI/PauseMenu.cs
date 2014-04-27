@@ -24,6 +24,7 @@ public class PauseMenu : MonoBehaviour {
 			}
 
 			player.GetComponent<PlayerController>().enabled = !paused;
+			player.GetComponent<Animator>().enabled = !paused;
 
 			foreach(GameObject gui in guiitems){
 				gui.SetActive(!paused);
