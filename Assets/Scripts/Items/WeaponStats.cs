@@ -5,6 +5,7 @@ public class WeaponStats : MonoBehaviour {
 
 	public GUIText popupref;
 	public int damage;
+	public float heal;
 	public float cooldown;
 	//public List<Attribute> attributes = new List<Attribute>();
 	public GameObject playerReference;
@@ -23,10 +24,12 @@ public class WeaponStats : MonoBehaviour {
 		int currdamage = currentweapon.GetComponent<WeaponStats>().damage;
 		if(currdamage == 0){
 			damage = 2;
+			heal = 0.05f;
 			renderer.material.color = new Color(0.75f, 0.75f, 0.75f);
 
 		} else {
 			damage = Random.Range (currdamage / 2, currdamage * 2);
+			heal = Random.Range (0.05f, 0.20f);
 			renderer.material.color = new Color(Random.value, Random.value, Random.value);
 		}
 
@@ -52,8 +55,10 @@ public class WeaponStats : MonoBehaviour {
 		if(Vector3.Distance(playerpos, swordpos) < 1 && transform.root.tag != "Player"){
 
 			int currdamage = playerReference.GetComponent<PlayerStats>().currentWeapon.GetComponent<WeaponStats>().damage;
+			float currheal = playerReference.GetComponent<PlayerStats>().currentWeapon.GetComponent<WeaponStats>().heal;
 
-			popup.text = "A (Xbox)/Q (Key) for sword (Damage: " + currdamage + " -> " + damage + ")";
+			popup.text = "A (Xbox)/Q (Key) for sword (Damage/Heal: <" + currdamage + ", " + currheal.ToString("#%")
+					+ "> -> <" + damage + ", " + heal.ToString("#%") + ">)";
 			if(Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown(MyInput.A_name)){
 				playerReference.GetComponent<PlayerStats>().PickUpSword(gameObject);
 			}

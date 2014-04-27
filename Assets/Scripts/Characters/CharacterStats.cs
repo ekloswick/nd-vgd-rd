@@ -46,9 +46,29 @@ public class CharacterStats : MonoBehaviour {
 				// if still some damage, hurt player and make invincible for short time
 				if (damage > 0)
 				{
+					
+					int damagedealt;
+					if(currentHealth >= damage){
+						damagedealt = damage;
+					} else {
+						damagedealt = currentHealth;
+					}
+					source.transform.root.GetComponent<PlayerStats>().damagedealt += damagedealt;
+
 					currentHealth -= damage;
 					damageTimeStamp = Time.time + damagedCooldown;
 				}
+
+				if(currentHealth <= 0){
+					//record kill
+					source.transform.root.GetComponent<PlayerStats>().kills ++;
+
+					//small chance to heal
+					if(Random.value <= source.GetComponent<WeaponStats>().heal){
+						source.transform.root.GetComponent<PlayerStats>().currentHealth++;
+					}
+				}
+
 			}
 			else if (source.transform.root.tag == "Enemy")
 			{
