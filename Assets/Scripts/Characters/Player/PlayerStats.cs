@@ -21,6 +21,7 @@ public class PlayerStats : CharacterStats {
 	private Vector3 shieldpos;
 	private Vector3 shieldrot;
 	
+	
 	// Use this for initialization
 	void Start ()
 	{

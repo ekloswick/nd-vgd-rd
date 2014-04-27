@@ -694,7 +694,7 @@ public class GenerateLevel : MonoBehaviour
 				GameObject obj;
 				
 				// spawns enemies on enemy tiles (will eventually be weighted randomness, currently is just goblins)
-				if (levelMatrix[x,z] == 13)
+				if (levelMatrix[x,z] == 13 && distance(startingLocation, new int[2] {x,z}) > 15f)
 				{
 					obj = (GameObject)Instantiate(goblinObject, new Vector3(x, 0.2f, z), new Quaternion());
 					enemyList.Add(obj);
