@@ -32,7 +32,6 @@ public class GenerateLevel : MonoBehaviour
 	private List<GameObject> tileList = new List<GameObject>();
 	private List<GameObject> enemyList = new List<GameObject>();
 	private List<GameObject> chestList = new List<GameObject>();
-	private List<GameObject> itemList = new List<GameObject>();
 	private List<int[]> rooms = new List<int[]>();
 	private List<GameObject> trapList = new List<GameObject>();
 
@@ -185,35 +184,41 @@ public class GenerateLevel : MonoBehaviour
 			shieldList.Remove(obj);
 		}
 
+		// remove tiles
 		foreach (GameObject tile in tileList)
 		{
 			GameObject.Destroy(tile);
 		}
 		
+		// remove enemies
 		foreach (GameObject enemy in enemyList)
 		{
 			GameObject.Destroy(enemy);
 		}
 		
+		// remove chests
 		foreach (GameObject chest in chestList)
 		{
 			GameObject.Destroy(chest);
 		}
 		
-		foreach (GameObject item in itemList)
+		// remove boulders
+		foreach (GameObject rock in GameObject.FindGameObjectsWithTag("Boulder"))
 		{
-			GameObject.Destroy(item);
+			GameObject.Destroy (rock);
 		}
-	
+		
+		// remove rooms
 		rooms.Clear();
 	
-		for (int x = 0; x < levelMatrix.GetLength(0); x++)
+		
+		/*for (int x = 0; x < levelMatrix.GetLength(0); x++)
 		{
 			for (int z = 0; z < levelMatrix.GetLength(1); z++)
 			{
 				levelMatrix[x,z] = -1;
 			}
-		}
+		}*/
 
 		//remove the "proceed to next level" message
 		GameObject.Find ("Exit Textured(Clone)").GetComponent<LevelTransition> ().popup.text = "";
