@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class GenerateLevel : MonoBehaviour
 {
+	private bool win;
+
 	// spawn chances	
 	public float enemyChance = 0.01f,
 					treasureChance = 0.003f,
@@ -50,6 +52,7 @@ public class GenerateLevel : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		win = false;
 		// use to get reliable dungeons
 		//Random.seed = 140394581;
 		//Random.seed = 608781738;
@@ -72,20 +75,40 @@ public class GenerateLevel : MonoBehaviour
 				enemy.GetComponent<EnemyStats>().currentHealth--;
 			}
 		}*/
+
+		if(win){
+			Time.timeScale = 0f;
+
+			GameObject.FindWithTag ("Player").GetComponent<PlayerStats> ().currentLevel = 10;
+
+			GameObject.Find ("WinText").GetComponent<GUIText>().enabled = true;
+			GameObject.Find ("KillsGUI").GetComponent<GUIText>().enabled = true;
+			GameObject.Find ("DamageGUI").GetComponent<GUIText>().enabled = true;
+			GameObject.Find ("QuitGUI").GetComponent<GUIText>().enabled = true;
+			GameObject.Find ("Exit Textured(Clone)").GetComponent<LevelTransition>().popup.text = "";
+
+			if(Input.GetKeyDown (KeyCode.Q) || Input.GetButtonDown (MyInput.B_name)){
+				Time.timeScale = 1f;
+				Application.LoadLevel("MainMenu");
+			}
+		}
 	}
 	
 	// deletes current level and generates the next one. if level > 10, the player wins!
 	public void proceedToNextLevel()
 	{
-		if (GameObject.FindWithTag("Player").GetComponent<PlayerStats>().currentLevel++ > 10)
+		GameObject.FindWithTag ("Player").GetComponent<PlayerStats> ().currentLevel++;
+
+		if (GameObject.FindWithTag ("Player").GetComponent<PlayerStats> ().currentLevel > 10)
 		{
-			// make game stop here, DOOO EEEEET!!!!
-		}
+			win = true;
+		} else {
 		
-		levelSize += 2;
+			levelSize += 2;
 		
-		clearDungeon();
-		setupDungeon();
+			clearDungeon();
+			setupDungeon();
+		}	
 	}
 	
 	// does everything to ready and display the dungeon

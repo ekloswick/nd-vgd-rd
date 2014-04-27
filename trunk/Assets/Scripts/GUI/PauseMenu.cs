@@ -40,6 +40,8 @@ public class PauseMenu : MonoBehaviour {
 			GameObject.Find ("ShieldGUI").GetComponent<GUIText>().enabled = paused;
 			GameObject.Find ("SpellGUI").GetComponent<GUIText>().enabled = paused;
 			GameObject.Find ("WeaponGUI").GetComponent<GUIText>().enabled = paused;
+			GameObject.Find ("KillsGUI").GetComponent<GUIText>().enabled = paused;
+			GameObject.Find ("DamageGUI").GetComponent<GUIText>().enabled = paused;
 
 			if(paused){
 				mycamera.transform.eulerAngles = new Vector3 (-90f, 45f, 0f);

@@ -49,8 +49,8 @@ public class ShieldStats : MonoBehaviour {
 			int currturnspeed = playerReference.GetComponent<PlayerStats>().currentShield.GetComponent<ShieldStats>().turnspeed;
 
 			popup.text = "A (Xbox)/Q (Key) for shield (Move/Turn: <" + 
-				currmovespeed.ToString("0.##") + ", " + currturnspeed +
-				"> -> <" + movespeed.ToString("0.##") + ", " + turnspeed + ">)";
+				currmovespeed.ToString("#%") + ", " + currturnspeed + (char)176 +
+					"> -> <" + movespeed.ToString("#%") + ", " + turnspeed + (char)176 + ">)";
 			if(Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown(MyInput.A_name)){
 				playerReference.GetComponent<PlayerStats>().PickUpShield(gameObject);
 			}

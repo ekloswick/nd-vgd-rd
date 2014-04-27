@@ -20,11 +20,16 @@ public class PlayerStats : CharacterStats {
 	private Vector3 weaponrot;
 	private Vector3 shieldpos;
 	private Vector3 shieldrot;
-	
+
+	public int kills;
+	public int damagedealt;
 	
 	// Use this for initialization
 	void Start ()
 	{
+		kills = 0;
+		damagedealt = 0;
+
 		myAnim = GetComponent<Animator>();
 		totalHealth = 3;
 		currentHealth = totalHealth;
@@ -75,13 +80,19 @@ public class PlayerStats : CharacterStats {
 	void Update ()
 	{
 		int currdamage = currentWeapon.GetComponent<WeaponStats>().damage;
+		float currheal = currentWeapon.GetComponent<WeaponStats> ().heal;
 		float currturnspeed = currentShield.GetComponent<ShieldStats> ().turnspeed;
 		float currmovespeed = currentShield.GetComponent<ShieldStats> ().movespeed;
+		int currkills = currentWeapon.transform.root.GetComponent<PlayerStats> ().kills;
+		int currdamagedealt = currentWeapon.transform.root.GetComponent<PlayerStats> ().damagedealt;
 
-
-		GameObject.Find ("ShieldGUI").GetComponent<GUIText> ().text = "Shield: (Move/Turn): " + currmovespeed + ", " + currturnspeed;
+		GameObject.Find ("ShieldGUI").GetComponent<GUIText> ().text = "Shield: (Move/Turn):  <" + currmovespeed.ToString("#%") + ",  " + currturnspeed + (char)176 + ">";
 		GameObject.Find ("SpellGUI").GetComponent<GUIText>().text = "Spell: ?";
-		GameObject.Find ("WeaponGUI").GetComponent<GUIText>().text = "Weapon (Damage): " + currdamage;
+		GameObject.Find ("WeaponGUI").GetComponent<GUIText>().text = "Weapon (Damage/Heal):  <" + currdamage + ",  " + currheal.ToString("#%") + ">";
+		GameObject.Find ("KillsGUI").GetComponent<GUIText>().text = "Kills:  " + currkills;
+		GameObject.Find ("DamageGUI").GetComponent<GUIText>().text = "Damage Dealt:  " + currdamagedealt;
+
+
 
 		//keep the currentweapon from falling out of the players hand
 		currentWeapon.transform.localPosition = weaponpos;
@@ -90,6 +101,11 @@ public class PlayerStats : CharacterStats {
 		//keep the current shield from fallingout of the players hand
 		currentShield.transform.localPosition = shieldpos;
 		currentShield.transform.localEulerAngles = shieldrot;
+
+		//prevent player from healing past max health
+		if(currentHealth > totalHealth){
+			currentHealth = totalHealth;
+		}
 
 		//lose the game
 		if (currentHealth <= 0)
@@ -102,13 +118,13 @@ public class PlayerStats : CharacterStats {
 			transform.root.GetComponent<PlayerController>().enabled = false;
 			transform.rigidbody.freezeRotation = false;*/
 			
-			if (Input.GetAxis (MyInput.Triggers_name) < -0.9 || Input.GetKeyDown (KeyCode.Space))
+			if (Input.GetKeyDown (KeyCode.Q) || Input.GetButton (MyInput.B_name))
 			{
 				/*transform.root.GetComponent<PlayerController>().enabled = true;
 				myAnim.SetBool("dead", false);
 				transform.rigidbody.freezeRotation = true;*/
 				Time.timeScale = 1.0f;
-				Application.LoadLevel("mainGame");
+				Application.LoadLevel("mainMenu");
 			}
 		}
 	}

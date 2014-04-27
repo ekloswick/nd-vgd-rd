@@ -24,7 +24,7 @@ public class LevelTransition : MonoBehaviour {
 			//Debug.Log ("Player collision");
 			popup.text = "A (Xbox)/Q (Keyboard) for next level";
 
-			if (Input.GetButton(MyInput.A_name))
+			if (Input.GetButtonDown(MyInput.A_name) || Input.GetKeyDown (KeyCode.Q))
 			{
 			    GameObject.FindWithTag("GameController").GetComponent<GenerateLevel>().proceedToNextLevel();
 			}
