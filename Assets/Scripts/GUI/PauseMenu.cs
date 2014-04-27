@@ -4,6 +4,7 @@ using System.Collections;
 public class PauseMenu : MonoBehaviour {
 
 	public GameObject player;
+	public GameObject mycamera;
 	private bool paused;
 
 	// Use this for initialization
@@ -32,7 +33,23 @@ public class PauseMenu : MonoBehaviour {
 
 			GameObject.Find ("GeneralScripts").GetComponent<PlayerHUD>().Pause (paused);
 
-			GameObject.Find ("Level").SetActive(!paused);
+			GameObject.Find ("Level").GetComponent<GUIText>().enabled = !paused;
+
+			GameObject.Find ("PauseGUI").GetComponent<GUIText>().enabled = paused;
+			GameObject.Find ("QuitGUI").GetComponent<GUIText>().enabled = paused;
+			GameObject.Find ("ShieldGUI").GetComponent<GUIText>().enabled = paused;
+			GameObject.Find ("SpellGUI").GetComponent<GUIText>().enabled = paused;
+			GameObject.Find ("WeaponGUI").GetComponent<GUIText>().enabled = paused;
+
+			if(paused){
+				mycamera.transform.eulerAngles = new Vector3 (-90f, 45f, 0f);
+			} else {
+				mycamera.transform.eulerAngles = new Vector3 (60f, 45f, 0f);
+			}
+		}
+
+		if(paused && (Input.GetKeyDown (KeyCode.Q) || Input.GetButtonDown (MyInput.B_name))){
+			Application.LoadLevel("MainMenu");
 		}
 
 

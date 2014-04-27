@@ -1,17 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Items\WeaponStats.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Characters\Enemies\Melee\MeleeEnemyAI.cs">
     <Files>
-      <File FileName="Assets\Scripts\GUI\PauseMenu.cs" Line="41" Column="1" />
-      <File FileName="Assets\Scripts\Procedural\GenerateLevel.cs" Line="208" Column="4" />
-      <File FileName="Assets\Scripts\Items\WeaponStats.cs" Line="48" Column="18" />
-      <File FileName="Assets\Scripts\Characters\Player\PlayerStats.cs" Line="107" Column="15" />
-      <File FileName="Assets\Scripts\Items\ChestController.cs" Line="51" Column="64" />
-      <File FileName="Assets\Scripts\GUI\PlayerHUD.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Characters\Player\PlayerController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Procedural\LevelTransition.cs" Line="7" Column="14" />
+      <File FileName="Assets\Scripts\GUI\PauseMenu.cs" Line="42" Column="75" />
+      <File FileName="Assets\Scripts\Characters\Player\CameraController.cs" Line="16" Column="54" />
+      <File FileName="Assets\Scripts\Characters\Player\PlayerStats.cs" Line="67" Column="97" />
+      <File FileName="Assets\Scripts\Characters\Enemies\EnemyAI.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Characters\Enemies\EnemyStats.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GUI\PauseMenu.cs" Line="27" Column="54" />
+      <File FileName="Assets\Scripts\Characters\Enemies\Melee\MeleeEnemyAI.cs" Line="22" Column="29" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
