@@ -97,9 +97,15 @@ public class PlayerStats : CharacterStats {
 				text.guiText.enabled = true;
 			
 			Time.timeScale = 0.0f;
+			/*myAnim.SetBool("dead", true);
+			transform.root.GetComponent<PlayerController>().enabled = false;
+			transform.rigidbody.freezeRotation = false;*/
 			
 			if (Input.GetAxis (MyInput.Triggers_name) < -0.9 || Input.GetKeyDown (KeyCode.Space))
 			{
+				/*transform.root.GetComponent<PlayerController>().enabled = true;
+				myAnim.SetBool("dead", false);
+				transform.rigidbody.freezeRotation = true;*/
 				Time.timeScale = 1.0f;
 				Application.LoadLevel("mainGame");
 			}

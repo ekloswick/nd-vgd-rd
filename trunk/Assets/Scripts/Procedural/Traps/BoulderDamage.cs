@@ -13,13 +13,14 @@ public class BoulderDamage : MonoBehaviour {
 	
 	}
 	
-	void OnTriggerEnter(Collider other)
+	void OnCollisionEnter(Collision other)
 	{
-		if (other.tag == "Player" || other.tag == "Enemy")
+		if (other.transform.tag == "Player" || other.transform.tag == "Enemy")
 		{
-			if (transform.rigidbody.velocity.magnitude > 0.5f)
+			if (transform.rigidbody.velocity.magnitude > 1.5f)
 			{
-				Debug.Log (other.tag + " HIT for 1 damage");
+				//Debug.Log (other.tag + " HIT for 1 damage");
+				//Debug.Log (transform.rigidbody.velocity.magnitude);
 				other.gameObject.GetComponent<CharacterStats>().isAttackedBy(transform.gameObject);
 			}
 		}
