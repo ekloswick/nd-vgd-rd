@@ -26,7 +26,7 @@ public class PlayerStats : CharacterStats {
 	{
 		myAnim = GetComponent<Animator>();
 		totalHealth = 3;
-		currentHealth = 3;
+		currentHealth = totalHealth;
 		
 		currentWeapon = (GameObject)Instantiate(Resources.Load("Prefabs/Items/Sword"));
 		currentWeapon.transform.parent = GameObject.Find("Right_Forearm").transform;
@@ -57,12 +57,12 @@ public class PlayerStats : CharacterStats {
 			}
 		}
 
-		GameObject.Find ("GeneralScripts").GetComponent<GenerateLevel> ().swordList.Add (currentWeapon);
-		GameObject.Find ("GeneralScripts").GetComponent<GenerateLevel> ().shieldList.Add (currentShield);
+		GameObject.FindWithTag ("GameController").GetComponent<GenerateLevel> ().swordList.Add (currentWeapon);
+		GameObject.FindWithTag ("GameController").GetComponent<GenerateLevel> ().shieldList.Add (currentShield);
 		
-		currentSpell = 0;
+		//currentSpell = null;
 
-		GameObject.Find ("GeneralScripts").GetComponent<PlayerHUD> ().updateItems (currentWeapon, currentShield);
+		GameObject.FindWithTag ("GameController").GetComponent<PlayerHUD> ().updateItems (currentWeapon, currentShield);
 
 		currentLevel = 1;
 

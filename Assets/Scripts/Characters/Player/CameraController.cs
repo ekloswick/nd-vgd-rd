@@ -13,7 +13,7 @@ public class CameraController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		transform.eulerAngles = new Vector3 (60f, 45f, 0f);
+		transform.eulerAngles = new Vector3 (65f, 45f, 0f);
 		//minheight = cameraHeight;
 	}
 	

@@ -34,6 +34,7 @@ public class GenerateLevel : MonoBehaviour
 	private List<GameObject> chestList = new List<GameObject>();
 	private List<GameObject> itemList = new List<GameObject>();
 	private List<int[]> rooms = new List<int[]>();
+	private List<GameObject> trapList = new List<GameObject>();
 
 	[HideInInspector]
 	public List<GameObject> swordList = new List<GameObject>();
@@ -74,9 +75,13 @@ public class GenerateLevel : MonoBehaviour
 		}*/
 	}
 	
+	// deletes current level and generates the next one. if level > 10, the player wins!
 	public void proceedToNextLevel()
 	{
-		GameObject.FindWithTag("Player").GetComponent<PlayerStats>().currentLevel++;
+		if (GameObject.FindWithTag("Player").GetComponent<PlayerStats>().currentLevel++ > 10)
+		{
+			// make game stop here, DOOO EEEEET!!!!
+		}
 		
 		levelSize += 2;
 		
@@ -84,6 +89,7 @@ public class GenerateLevel : MonoBehaviour
 		setupDungeon();
 	}
 	
+	// does everything to ready and display the dungeon
 	void setupDungeon()
 	{
 		levelMatrix = new int[levelSize,levelSize];
@@ -128,18 +134,20 @@ public class GenerateLevel : MonoBehaviour
 			enemyTile = (GameObject)Resources.Load ("Prefabs/Dev Tiles/Enemy");
 			treasureTile = (GameObject)Resources.Load ("Prefabs/Dev Tiles/Treasure");
 			trapTile = (GameObject)Resources.Load ("Prefabs/Dev Tiles/Trap");
-			//exitTile = (GameObject)Resources.Load ("Prefabs/Dev Tiles/Exit");
+			exitTile = (GameObject)Resources.Load ("Prefabs/Dev Tiles/Exit");
 		}
 		else if (tileStyle == 1)
 		{
 			// textured dungeon tiles
 			basicTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/Basic Textured");
 			wallTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/Wall Textured");
-			trapTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/Trap Textured");
-			//exitTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/Exit Textured");
+			exitTile = (GameObject)Resources.Load ("Prefabs/Dungeon Tiles/Exit Textured");
+			
+			// load in traps
+			trapList.Add((GameObject)Resources.Load ("Prefabs/Dungeon Tiles/Trap - Spikes"));
+			trapList.Add((GameObject)Resources.Load ("Prefabs/Dungeon Tiles/Trap - Boulder"));
+			
 		}
-		
-		exitTile = (GameObject)Resources.Load ("Prefabs/Dev Tiles/Exit");
 		
 		// enemies
 		goblinObject = (GameObject)Resources.Load("Prefabs/Enemies/Goblin");
@@ -208,7 +216,7 @@ public class GenerateLevel : MonoBehaviour
 		}
 
 		//remove the "proceed to next level" message
-		GameObject.Find ("Exit(Clone)").GetComponent<LevelTransition> ().popup.text = "";
+		GameObject.Find ("Exit Textured(Clone)").GetComponent<LevelTransition> ().popup.text = "";
 		
 		return;
 	}
@@ -735,7 +743,8 @@ public class GenerateLevel : MonoBehaviour
 			case 14:
 				return (GameObject)Instantiate(basicTile);
 			case 15:
-				return (GameObject)Instantiate(trapTile);
+				return (GameObject)Instantiate(trapList[Random.Range (0,trapList.Count)]);
+				//return (GameObject)Instantiate(trapTile);
 			case 99:
 				return (GameObject)Instantiate(exitTile);
 			default:

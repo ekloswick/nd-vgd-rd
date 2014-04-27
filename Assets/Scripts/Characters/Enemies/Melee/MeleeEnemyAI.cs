@@ -3,7 +3,6 @@ using System.Collections;
 
 public class MeleeEnemyAI : EnemyAI {
 
-
 	// Use this for initialization
 	void Start ()
 	{

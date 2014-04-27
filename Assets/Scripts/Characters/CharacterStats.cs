@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Xml;
 
 public class CharacterStats : MonoBehaviour {
-
-	public int totalHealth, currentHealth;
-	public int currentSpell;
 	
+	[HideInInspector]
+	public int totalHealth, currentHealth;
+	[HideInInspector]
+	public GameObject currentSpell;
 	[HideInInspector]
 	public List<int> currentStatuses = new List<int>();
 	
@@ -29,6 +30,7 @@ public class CharacterStats : MonoBehaviour {
 		{
 			// add in any resistances/damage reductions here
 			
+			
 			// the actual damage
 			currentHealth -= source.GetComponent<WeaponStats>().damage;
 			
@@ -37,9 +39,15 @@ public class CharacterStats : MonoBehaviour {
 		{
 			// add in any resistances/damage reductions here
 			
+			
 			// the actual damage
 			currentHealth -= source.GetComponent<EnemyStats>().attackDamage;
 			
+		}
+		// traps
+		else if (source.transform.root.tag == "Floor")
+		{
+			currentHealth -= 1;
 		}
 		
 		// make sure negative health isn't a thing
