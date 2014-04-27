@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PlayerHUD : MonoBehaviour {
 
+	public GUIText level;
 	public GUITexture guiref;
 	public GameObject player;
 	public GameObject mycamera;
@@ -70,7 +71,9 @@ public class PlayerHUD : MonoBehaviour {
 		}
 		*/
 
-		refreshItemsPosition ();
+		refreshItemsTransform ();
+
+		level.text = "Level: " + player.GetComponent<PlayerStats> ().currentLevel;
 	}
 
 	public void updateItems(GameObject sword, GameObject shield){
@@ -84,13 +87,7 @@ public class PlayerHUD : MonoBehaviour {
 		mysword.transform.parent = mycamera.transform;
 		myshield.transform.parent = mycamera.transform;
 
-		mysword.transform.localEulerAngles = new Vector3 (270f, 0f, 0f);
-		myshield.transform.localEulerAngles = new Vector3 (270f, 90f, 0f);
-		
-		mysword.transform.localScale = new Vector3 (0.05f, 0.001f, 0.15f);
-		myshield.transform.localScale = new Vector3 (0.001f, 0.04f, 0.04f);
-
-		refreshItemsPosition ();
+		refreshItemsTransform ();
 
 		mysword.GetComponent<MeshRenderer> ().castShadows = false;
 		myshield.GetComponent<MeshRenderer> ().castShadows = false;
@@ -99,10 +96,30 @@ public class PlayerHUD : MonoBehaviour {
 		myshield.GetComponent<MeshRenderer> ().receiveShadows = false;
 	}
 
-	void refreshItemsPosition(){
+	void refreshItemsTransform(){
 		float aspect = (float) Screen.width / (float) Screen.height;
 		
 		mysword.transform.localPosition = new Vector3 ((0.5f * aspect) - 0.5f, 0.55f , 1f);
 		myshield.transform.localPosition = new Vector3 ((0.5f * aspect) - 0.25f, 0.45f, 1f);
+
+		mysword.transform.localEulerAngles = new Vector3 (270f, 0f, 0f);
+		myshield.transform.localEulerAngles = new Vector3 (270f, 90f, 0f);
+		
+		mysword.transform.localScale = new Vector3 (0.05f, 0.001f, 0.15f);
+		myshield.transform.localScale = new Vector3 (0.001f, 0.04f, 0.04f);
+
+		GameObject currentsword = player.GetComponent<PlayerStats> ().currentWeapon;
+		GameObject currentshield = player.GetComponent<PlayerStats> ().currentShield;
+
+		mysword.renderer.material.color = currentsword.renderer.material.color;
+		myshield.renderer.material.color = currentshield.renderer.material.color;
+	}
+
+	public void Pause(bool paused){
+		foreach(GUITexture item in heartsarray){
+			item.enabled = !paused;
+		}
+		mysword.SetActive (!paused);
+		myshield.SetActive (!paused);
 	}
 }

@@ -57,6 +57,12 @@ public class PlayerController : MonoBehaviour {
 
 	void turnPlayer(){
 
+		if(transform.position.y < 0){
+			Vector3 temp = transform.position;
+			temp.y = 0;
+			transform.position = temp;
+		}
+
 		if(myAnim.GetCurrentAnimatorStateInfo(0).IsName("Blocking")){
 			rotatespeed = blockrotate;
 		} else {

@@ -6,7 +6,7 @@ public class PlayerStats : CharacterStats {
 
 	//public GameObject currentWeapon;
 	//public GameObject currentShield;
-
+	
 	public Animator myAnim;
 	public int currentLevel;
 	public GameObject currentWeapon, currentShield;
@@ -15,6 +15,9 @@ public class PlayerStats : CharacterStats {
 	public GameObject currentSpell;*/
 	[HideInInspector]
 	public List<SmellPoint> smellPoints = new List<SmellPoint>();
+
+	private Vector3 weaponpos;
+	private Vector3 weaponrot;
 	
 	// Use this for initialization
 	void Start ()
@@ -26,11 +29,16 @@ public class PlayerStats : CharacterStats {
 		currentWeapon = (GameObject)Instantiate(Resources.Load("Prefabs/Items/Sword"));
 		currentWeapon.transform.parent = GameObject.Find("Right_Forearm").transform;
 		currentWeapon.transform.position = currentWeapon.transform.parent.position + new Vector3(0.5f,0.2f,0f);
+		weaponpos = currentWeapon.transform.localPosition;
+		weaponrot = currentWeapon.transform.localEulerAngles;
 		
 		currentShield = (GameObject)Instantiate(Resources.Load("Prefabs/Items/Shield"));
 		currentShield.transform.parent = GameObject.Find("Left_Forearm").transform;
 		currentShield.transform.position = currentShield.transform.parent.position + new Vector3(-.05f,.075f,.075f);
 		currentShield.transform.rotation = currentShield.transform.parent.rotation * Quaternion.Euler(40f, 160f, 80f);
+
+		GameObject.Find ("GeneralScripts").GetComponent<GenerateLevel> ().swordList.Add (currentWeapon);
+		GameObject.Find ("GeneralScripts").GetComponent<GenerateLevel> ().shieldList.Add (currentShield);
 		
 		currentSpell = 0;
 
@@ -45,6 +53,10 @@ public class PlayerStats : CharacterStats {
 	// Update is called once per frame
 	void Update ()
 	{
+		//keep the currentweapon from falling out of the players hand
+		currentWeapon.transform.localPosition = weaponpos;
+		currentWeapon.transform.localEulerAngles = weaponrot;
+
 		//lose the game
 		if (currentHealth <= 0)
 		{
@@ -81,5 +93,15 @@ public class PlayerStats : CharacterStats {
 		
 		smellPoints.Insert(0, new SmellPoint(transform.position, 2.5f));
 		//Debug.Log("New smellpoint at: " + smellPoints[smellPoints.Count - 1].point);
+	}
+
+	public void PickUpSword(GameObject newsword){
+		GameObject oldsword = currentWeapon;
+		currentWeapon = newsword;
+
+		oldsword.transform.parent = null;
+		currentWeapon.transform.parent = GameObject.Find("Right_Forearm").transform;
+
+		oldsword.rigidbody.velocity = new Vector3 (1f, 5f, 1f);
 	}
 }

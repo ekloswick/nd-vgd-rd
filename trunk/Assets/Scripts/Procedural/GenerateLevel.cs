@@ -34,6 +34,11 @@ public class GenerateLevel : MonoBehaviour
 	private List<GameObject> chestList = new List<GameObject>();
 	private List<GameObject> itemList = new List<GameObject>();
 	private List<int[]> rooms = new List<int[]>();
+
+	[HideInInspector]
+	public List<GameObject> swordList = new List<GameObject>();
+	[HideInInspector]
+	public List<GameObject> shieldList = new List<GameObject>();
 	
 	// enemies
 	private GameObject goblinObject;
@@ -146,6 +151,32 @@ public class GenerateLevel : MonoBehaviour
 	// fills dungeon matrix with empty "0" values (correspond to "darkness" tiles)
 	void clearDungeon()
 	{
+		//remove all weapons on ground
+		List<GameObject> templist = new List<GameObject> ();
+		foreach (GameObject sword in swordList)
+		{
+			if(sword.transform.root.tag != "Player"){
+				GameObject.Destroy (sword);
+				templist.Add (sword);
+			}
+		}
+		foreach(GameObject obj in templist){
+			swordList.Remove (obj);
+		}
+
+		//remove all shields on ground
+		templist = new List<GameObject>();
+		foreach (GameObject shield in shieldList)
+		{
+			if(shield.transform.root.tag != "Player"){
+				GameObject.Destroy (shield);
+				templist.Add(shield);
+			}
+		}
+		foreach(GameObject obj in templist){
+			shieldList.Remove(obj);
+		}
+
 		foreach (GameObject tile in tileList)
 		{
 			GameObject.Destroy(tile);
