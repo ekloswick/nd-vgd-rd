@@ -10,6 +10,7 @@ public class BoulderTrap : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
+		// each boulder trap has a set amount of boulders to throw out
 		numberOfBoulders = Random.Range(1,5);
 	}
 	
@@ -24,11 +25,12 @@ public class BoulderTrap : MonoBehaviour {
 		{
 			GameObject obj = (GameObject)Instantiate(boulderPrefab);
 			obj.transform.position = transform.position + new Vector3(0f, 5f, 0f);
+			obj.rigidbody.velocity = new Vector3(Random.Range(-1f,2f), -10f, Random.Range (-1f,2f));
 			numberOfBoulders--;
 		}
 		else if (other.tag == "Boulder")
 		{
-			other.rigidbody.velocity = Random.insideUnitSphere;
+			other.rigidbody.velocity = 3f * Random.insideUnitSphere;
 		}
 	}
 }

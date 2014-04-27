@@ -30,7 +30,6 @@ public class CharacterStats : MonoBehaviour {
 		{
 			// add in any resistances/damage reductions here
 			
-			
 			// the actual damage
 			currentHealth -= source.GetComponent<WeaponStats>().damage;
 			
@@ -45,7 +44,7 @@ public class CharacterStats : MonoBehaviour {
 			
 		}
 		// traps
-		else if (source.transform.root.tag == "Floor")
+		else if (source.transform.root.tag == "Floor" || source.transform.root.tag == "Boulder")
 		{
 			currentHealth -= 1;
 		}
