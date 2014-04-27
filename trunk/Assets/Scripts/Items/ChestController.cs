@@ -24,7 +24,7 @@ public class ChestController : MonoBehaviour {
 		Vector3 chestpos = gameObject.transform.position;
 
 		if(Vector3.Distance(playerpos, chestpos) < 1 && myAnim.GetCurrentAnimatorStateInfo(0).IsName("Closed")){
-			popup.text = "Press A (Xbox) / Q (Keyboard) to open chest";
+			popup.text = "A (Xbox)/Q (Key) to open chest";
 			if(Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown(MyInput.A_name)){
 				myAnim.SetBool("isOpen", true);
 				Vector3 direction = Vector3.Normalize(chestpos - playerpos);
@@ -39,12 +39,13 @@ public class ChestController : MonoBehaviour {
 		GameObject newitem;
 		float itemchance = Random.value;
 
-		itemchance = 0f;
-
-		if(itemchance > 0.95){
+		if(itemchance > 1){
 			//spawn spell
 		} else if(itemchance > 0.65){
-			//spawn shield
+			newitem = (GameObject)Instantiate(Resources.Load("Prefabs/Items/Shield"));
+			newitem.transform.position = transform.position;
+			newitem.rigidbody.velocity = new Vector3(-direction.x, 7f, -direction.z);
+			GameObject.Find ("GeneralScripts").GetComponent<GenerateLevel> ().shieldList.Add (newitem);
 		} else {
 			newitem = (GameObject)Instantiate(Resources.Load("Prefabs/Items/Sword"));
 			newitem.transform.position = transform.position;

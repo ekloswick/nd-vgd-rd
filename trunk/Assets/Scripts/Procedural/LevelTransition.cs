@@ -22,7 +22,7 @@ public class LevelTransition : MonoBehaviour {
 		if (other.tag == "Player")
 		{
 			//Debug.Log ("Player collision");
-			popup.text = "Press A (Xbox) / Q (Keyboard) to advance to next level";
+			popup.text = "A (Xbox)/Q (Keyboard) for next level";
 
 			if (Input.GetButton(MyInput.A_name))
 			{

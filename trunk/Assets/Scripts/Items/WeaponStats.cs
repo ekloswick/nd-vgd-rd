@@ -53,7 +53,7 @@ public class WeaponStats : MonoBehaviour {
 
 			int currdamage = playerReference.GetComponent<PlayerStats>().currentWeapon.GetComponent<WeaponStats>().damage;
 
-			popup.text = "Press A (Xbox) / Q (Keyboard) to pickup sword (Damage: " + currdamage + " -> " + damage + ")";
+			popup.text = "A (Xbox)/Q (Key) for sword (Damage: " + currdamage + " -> " + damage + ")";
 			if(Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown(MyInput.A_name)){
 				playerReference.GetComponent<PlayerStats>().PickUpSword(gameObject);
 			}
@@ -65,7 +65,7 @@ public class WeaponStats : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider other)
 	{
-		if (playerReference.GetComponent<PlayerStats>().myAnim.GetBool("attacking"))
+		if (playerReference.GetComponent<PlayerStats>().myAnim.GetBool("attacking") && transform.root.tag == "Player")
 		{
 			if (other.tag == "Enemy")
 			{

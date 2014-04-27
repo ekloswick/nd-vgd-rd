@@ -5,7 +5,9 @@ public class PlayerController : MonoBehaviour {
 	
 	public float speed;
 	public float notblockrotate;
-	public float blockrotate;
+
+	private float blockrotate;
+	private float blockmove;
 
 	private string L_XAxisname;
 	private string L_YAxisname;
@@ -16,6 +18,7 @@ public class PlayerController : MonoBehaviour {
 
 	private Animator myAnim;
 	private float rotatespeed;
+	private float speedmod;
 
 	// Use this for initialization
 	void Start () {
@@ -29,6 +32,10 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update(){
+
+		blockrotate = GetComponent<PlayerStats> ().currentShield.GetComponent<ShieldStats> ().turnspeed;
+		blockmove = GetComponent<PlayerStats> ().currentShield.GetComponent<ShieldStats> ().movespeed;
+
 		float triggerval = Input.GetAxis (MyInput.Triggers_name);
 
 		if(triggerval < -0.9 || Input.GetKey (KeyCode.Space)){
@@ -65,8 +72,10 @@ public class PlayerController : MonoBehaviour {
 
 		if(myAnim.GetCurrentAnimatorStateInfo(0).IsName("Blocking")){
 			rotatespeed = blockrotate;
+			speedmod = speed * blockmove;
 		} else {
 			rotatespeed = notblockrotate;
+			speedmod = speed;
 		}
 			
 		//Turn the player based on the right stick or mouse movement
@@ -141,7 +150,7 @@ public class PlayerController : MonoBehaviour {
 		
 		Vector3 newmotion = Quaternion.Euler(0, 45, 0) * new Vector3 (xinput, 0f, zinput);
 		
-		rigidbody.MovePosition (transform.position + (speed * newmotion * Time.deltaTime));
+		rigidbody.MovePosition (transform.position + (speedmod * newmotion * Time.deltaTime));
 
 		if(Mathf.Abs (xinput) > 0.1f || Mathf.Abs (zinput) > 0.1f){
 			myAnim.SetBool("walking", true);
