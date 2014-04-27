@@ -11,9 +11,8 @@ public class EnemyStats : CharacterStats {
 	void Start ()
 	{
 		// we eventually want to read this data in from the XML files
-		totalHealth = 2 * GameObject.FindWithTag("Player").GetComponent<PlayerStats>().currentLevel;
+		totalHealth = 2 * (GameObject.FindWithTag("Player").GetComponent<PlayerStats>().currentLevel + 1);
 		currentHealth = totalHealth;
-		
 		//currentSpell = null;
 		
 		attackDamage = 1;
@@ -30,6 +29,7 @@ public class EnemyStats : CharacterStats {
 			//GameObject.Destroy(transform.root.gameObject);
 			
 			// either deactivate this character (turn off AI and ragdoll it) or destroy the GameObject
+			transform.gameObject.GetComponentInChildren<Animator>().SetBool("isDead", true);
 			transform.gameObject.GetComponent<EnemyAI>().enabled = false;
 			transform.rigidbody.freezeRotation = false;
 			

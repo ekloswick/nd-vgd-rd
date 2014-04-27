@@ -3,18 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class EnemyAI : MonoBehaviour {
-	
-	public Animator enemyAnimator;
-	
+		
 	public float chaseSpeed;
 	public float wanderSpeed;
 	public float chaseTurnRate;
 	public float wanderTurnRate;
-	public float desiredDistance;
+	public float desiredAttackDistance;
+	public float desiredAvoidDistance;
 	
 	public float FOVAngle; // 45 would mean 90 total FOV (45 on each side)
 	public float FOVDistance; // how many units away in the FOV can they see
+	public float autoSensePlayer;
 	
+	[HideInInspector]
+	public Animator enemyAnimator;
 	[HideInInspector]
 	public bool targetIsFromMemory = false;
 	[HideInInspector]
@@ -30,6 +32,11 @@ public class EnemyAI : MonoBehaviour {
 	// moves enemy towards currentTarget
 	public void moveToTarget(float speed, float turnRate)
 	{
+		if (speed == chaseSpeed)
+			enemyAnimator.SetBool("isChasing", true);
+		else
+			enemyAnimator.SetBool("isChasing", false);
+	
 		transform.position = transform.position + speed*transform.forward * Time.deltaTime;
 		
 		targetDirection = currentTarget - transform.position;
@@ -60,7 +67,7 @@ public class EnemyAI : MonoBehaviour {
 				//Debug.DrawRay (transform.position, dir, Color.red, 0.5f);
 				
 				// if raycast hits wall that's closer than 0.5 units away
-				if ((hit.transform.tag == "Wall" || hit.transform.tag == "Enemy" || hit.transform.tag == "Chest") && hit.distance < 0.5f)
+				if ((hit.transform.tag == "Wall" || hit.transform.tag == "Enemy" || hit.transform.tag == "Chest") && hit.distance < desiredAvoidDistance)
 				{
 					//Debug.Log("Pushing away from wall: " + dir);
 					transform.position = transform.position - 0.7f*dir*Time.deltaTime;
@@ -78,7 +85,7 @@ public class EnemyAI : MonoBehaviour {
 		Vector3 playerDirection = playerReference.transform.position - transform.position;
 		
 		// if player is in field of view and raycast isn't blocked
-		if (Vector3.Angle(playerDirection, transform.forward) < FOVAngle || Vector3.Distance(playerReference.transform.position, transform.position) < 5.0f)
+		if (Vector3.Angle(playerDirection, transform.forward) < FOVAngle || Vector3.Distance(playerReference.transform.position, transform.position) < autoSensePlayer)
 		{
 			// performs raycast calcuations, ~(1 << 8) is a layer mask saying we want to test every layer BUT 8, which is floor
 			// if floor is not cut out of tests, enemies won't move since transform.position is at y = 0
@@ -106,7 +113,7 @@ public class EnemyAI : MonoBehaviour {
 	// checks if enemy is within range and can actually attack player
 	public bool canAttackPlayer()
 	{
-		if (Vector3.Distance(playerReference.transform.position, transform.position) < desiredDistance)
+		if (Vector3.Distance(playerReference.transform.position, transform.position) < desiredAttackDistance)
 			return true;
 		else
 			return false;
@@ -157,13 +164,29 @@ public class EnemyAI : MonoBehaviour {
 	// executes attack
 	public void attackPlayer()
 	{
+		enemyAnimator.SetBool("isChasing", true);
+		enemyAnimator.SetBool("isDead", false);
+		enemyAnimator.SetTrigger("triggerAttack");
 		
 		return;
 	}
+	
+	//void OnCollisionEnter(Collision other)
+	void OnTriggerEnter(Collider other)
+	{
+		//if (other.transform.tag == "Player")
+		if (other.tag == "Player")
+		{
+			//other.transform.GetComponent<PlayerStats>().isAttackedBy(transform.gameObject);
+			other.GetComponent<PlayerStats>().isAttackedBy(transform.gameObject);
+		}
+	}
+	
 	
 	// helper function to calculate absolute distance from enemy to target
 	public float distanceToTarget()
 	{
 		return Vector3.Distance(transform.position, currentTarget);
 	}
+	
 }

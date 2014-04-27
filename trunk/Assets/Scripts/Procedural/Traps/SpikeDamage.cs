@@ -18,7 +18,16 @@ public class SpikeDamage : MonoBehaviour {
 		if (other.tag == "Player" || other.tag == "Enemy")
 		{
 			other.gameObject.GetComponent<CharacterStats>().isAttackedBy(transform.gameObject);
-			Debug.Log (other.tag + " HIT for 1 damage");
+			//Debug.Log (other.tag + " HIT for 1 damage");
+		}
+	}
+	
+	void OnTriggerStay(Collider other)
+	{
+		if (other.tag == "Player" || other.tag == "Enemy")
+		{
+			other.gameObject.GetComponent<CharacterStats>().isAttackedBy(transform.gameObject);
+			//Debug.Log (other.tag + " HIT for 1 damage");
 		}
 	}
 }

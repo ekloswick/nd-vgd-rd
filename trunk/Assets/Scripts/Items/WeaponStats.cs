@@ -74,8 +74,9 @@ public class WeaponStats : MonoBehaviour {
 				//else if (weaponType == "Ranged")
 				
 				other.gameObject.GetComponent<EnemyStats>().isAttackedBy(playerReference.GetComponent<PlayerStats>().currentWeapon);
+				other.gameObject.GetComponentInChildren<Animator>().SetTrigger("triggerDamaged");
 				
-				Debug.Log ("HIT, Damage: " + damage + ", Enemy HP left: " + other.gameObject.GetComponent<EnemyStats>().currentHealth);
+				//Debug.Log ("HIT, Damage: " + damage + ", Enemy HP left: " + other.gameObject.GetComponent<EnemyStats>().currentHealth);
 			}
 		}
 	}

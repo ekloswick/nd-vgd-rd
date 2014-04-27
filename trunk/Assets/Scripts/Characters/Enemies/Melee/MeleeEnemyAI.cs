@@ -8,7 +8,11 @@ public class MeleeEnemyAI : EnemyAI {
 	{
 		//Debug.Log (transform.forward);
 		playerReference = GameObject.FindWithTag("Player");
-		desiredDistance = 0.5f;
+		
+		enemyAnimator = transform.GetComponentInChildren<Animator>();
+		enemyAnimator.SetBool("isChasing", false);
+		enemyAnimator.SetBool("isDead", false);
+		
 	}
 	
 	// Update is called once per frame
