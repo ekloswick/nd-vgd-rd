@@ -61,6 +61,11 @@ public class PlayerStats : CharacterStats {
 	// Update is called once per frame
 	void Update ()
 	{
+
+		GameObject.Find ("ShieldGUI").GetComponent<GUIText> ().text = "Shield: ?";
+		GameObject.Find ("SpellGUI").GetComponent<GUIText>().text = "Spell: ?";
+		GameObject.Find ("WeaponGUI").GetComponent<GUIText>().text = "Weapon: " + currentWeapon.GetComponent<WeaponStats>().damage;
+
 		//keep the currentweapon from falling out of the players hand
 		currentWeapon.transform.localPosition = weaponpos;
 		currentWeapon.transform.localEulerAngles = weaponrot;

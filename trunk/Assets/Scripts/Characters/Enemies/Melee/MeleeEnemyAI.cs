@@ -15,6 +15,12 @@ public class MeleeEnemyAI : EnemyAI {
 	// Update is called once per frame
 	void Update ()
 	{
+		Vector3 temp = transform.position;
+		if(temp.y < 0){
+			temp.y = 0;
+		}
+		transform.position = temp;
+
 		//Debug.Log(currentTarget);
 		
 		// if enemy can see player, move forward and slightly turn towards player position
