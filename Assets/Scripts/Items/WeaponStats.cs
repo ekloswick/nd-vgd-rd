@@ -43,6 +43,11 @@ public class WeaponStats : MonoBehaviour {
 	{
 		Vector3 playerpos = playerReference.transform.position;
 		Vector3 swordpos = gameObject.transform.position;
+
+		if(swordpos.y < 0){
+			swordpos.y = 1;
+			transform.position = swordpos;
+		}
 		
 		if(Vector3.Distance(playerpos, swordpos) < 1 && transform.root.tag != "Player"){
 

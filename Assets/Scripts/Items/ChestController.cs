@@ -27,7 +27,8 @@ public class ChestController : MonoBehaviour {
 			popup.text = "Press A (Xbox) / Q (Keyboard) to open chest";
 			if(Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown(MyInput.A_name)){
 				myAnim.SetBool("isOpen", true);
-				spawnItem(playerpos - chestpos);
+				Vector3 direction = Vector3.Normalize(chestpos - playerpos);
+				spawnItem(direction);
 			}
 		} else {
 			popup.text = "";
@@ -47,7 +48,7 @@ public class ChestController : MonoBehaviour {
 		} else {
 			newitem = (GameObject)Instantiate(Resources.Load("Prefabs/Items/Sword"));
 			newitem.transform.position = transform.position;
-			newitem.rigidbody.velocity = new Vector3(direction.x, 7f, direction.z);
+			newitem.rigidbody.velocity = new Vector3(-direction.x, 7f, -direction.z);
 			GameObject.Find ("GeneralScripts").GetComponent<GenerateLevel> ().swordList.Add (newitem);
 		}
 
