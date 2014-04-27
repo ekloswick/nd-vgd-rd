@@ -1,22 +1,23 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class EnemyStats : CharacterStats {
 	
-	//private Animator myAnim;
+	[HideInInspector]
 	public int attackDamage;
-	public float attackCooldown;
+	//public float attackCooldown;
 	
 	// Use this for initialization
 	void Start ()
 	{
 		// we eventually want to read this data in from the XML files
-		totalHealth = 2;
-		currentHealth = 2;
-		currentSpell = 0;
+		totalHealth = 2 * GameObject.FindWithTag("Player").GetComponent<PlayerStats>().currentLevel;
+		currentHealth = totalHealth;
+		
+		//currentSpell = null;
 		
 		attackDamage = 1;
-		attackCooldown = 1;
+		//attackCooldown = 1;
 		
 	}
 	

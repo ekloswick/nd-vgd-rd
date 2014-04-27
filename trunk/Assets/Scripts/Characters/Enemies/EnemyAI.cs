@@ -3,21 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class EnemyAI : MonoBehaviour {
-
-	public float chaseSpeed = 1.8f;
-	public float wanderSpeed = 1.0f;
-	public float chaseTurnRate = 200f;
-	public float wanderTurnRate = 100f;
+	
+	public Animator enemyAnimator;
+	
+	public float chaseSpeed;
+	public float wanderSpeed;
+	public float chaseTurnRate;
+	public float wanderTurnRate;
 	public float desiredDistance;
 	
-	public float FOVAngle = 90f; // 45 would mean 90 total FOV (45 on each side)
-	public float FOVDistance = 15f; // how many units away in the FOV can they see
+	public float FOVAngle; // 45 would mean 90 total FOV (45 on each side)
+	public float FOVDistance; // how many units away in the FOV can they see
 	
+	[HideInInspector]
 	public bool targetIsFromMemory = false;
-	
+	[HideInInspector]
 	public GameObject playerReference;
+	[HideInInspector]
 	public Vector3 currentTarget;
+	[HideInInspector]
 	public Vector3 targetDirection;
+	[HideInInspector]
 	private Vector3[] objectChecks = {new Vector3(0f,0f,1f), new Vector3(0f,0f,-1f), new Vector3(1f,0f,0f), new Vector3(-1f,0f,0f),
 									new Vector3(1f,0f,1f), new Vector3(-1f,0f,-1f), new Vector3(1f,0f,-1f), new Vector3(-1f,0f,1f)};
 	
@@ -104,19 +110,6 @@ public class EnemyAI : MonoBehaviour {
 			return true;
 		else
 			return false;
-	
-		//Debug.Log (distanceToTarget() + " and " + desiredDistance);
-		/*if (targetIsFromMemory)
-		{
-			if (distanceToTarget() < 0.1f)
-				return true;
-		}
-		else if (distanceToTarget() < desiredDistance)
-			return true;
-		else
-			return false;
-			
-		return false;*/
 	}
 	
 	// checks for direct LOS to smellpoint
