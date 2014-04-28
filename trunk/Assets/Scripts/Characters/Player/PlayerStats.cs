@@ -9,10 +9,8 @@ public class PlayerStats : CharacterStats {
 	
 	public Animator myAnim;
 	public int currentLevel;
-	public GameObject currentWeapon, currentShield;
-	
-	/*[HideInInspector]
-	public GameObject currentSpell;*/
+	public GameObject currentWeapon, currentShield, currentSpell;
+
 	[HideInInspector]
 	public List<SmellPoint> smellPoints = new List<SmellPoint>();
 
@@ -63,6 +61,8 @@ public class PlayerStats : CharacterStats {
 			}
 		}
 
+		currentSpell = null;
+
 		GameObject.FindWithTag ("GameController").GetComponent<GenerateLevel> ().swordList.Add (currentWeapon);
 		GameObject.FindWithTag ("GameController").GetComponent<GenerateLevel> ().shieldList.Add (currentShield);
 		
@@ -87,12 +87,17 @@ public class PlayerStats : CharacterStats {
 		int currdamagedealt = currentWeapon.transform.root.GetComponent<PlayerStats> ().damagedealt;
 
 		GameObject.Find ("ShieldGUI").GetComponent<GUIText> ().text = "Shield: (Move/Turn):  <" + currmovespeed.ToString("#%") + ",  " + currturnspeed + (char)176 + ">";
-		GameObject.Find ("SpellGUI").GetComponent<GUIText>().text = "Spell: ?";
 		GameObject.Find ("WeaponGUI").GetComponent<GUIText>().text = "Weapon (Damage/Heal):  <" + currdamage + ",  " + currheal.ToString("#%") + ">";
 		GameObject.Find ("KillsGUI").GetComponent<GUIText>().text = "Kills:  " + currkills;
 		GameObject.Find ("DamageGUI").GetComponent<GUIText>().text = "Damage Dealt:  " + currdamagedealt;
 
-
+		if(currentSpell == null){
+			GameObject.Find ("SpellGUI").GetComponent<GUIText>().text = "Spell: Damage/Cooldown):  No Spell";
+		} else {
+			int currspelldamage = currentSpell.GetComponent<SpellStats> ().damage;
+			float currcooldown = currentSpell.GetComponent<SpellStats> ().cooldown;
+			GameObject.Find ("SpellGUI").GetComponent<GUIText>().text = "Spell: Damage/Cooldown):  <" + currspelldamage + ",  " + currcooldown.ToString("0.##") + ">";
+		}
 
 		//keep the currentweapon from falling out of the players hand
 		currentWeapon.transform.localPosition = weaponpos;
@@ -101,6 +106,14 @@ public class PlayerStats : CharacterStats {
 		//keep the current shield from fallingout of the players hand
 		currentShield.transform.localPosition = shieldpos;
 		currentShield.transform.localEulerAngles = shieldrot;
+
+		//keep the current spell from falling from GUI
+		if(currentSpell != null){
+			float aspect = (float) Screen.width / (float) Screen.height;
+			currentSpell.transform.localPosition = new Vector3 ((0.5f * aspect), 0.45f , 1f);
+			currentSpell.transform.localScale = new Vector3 (0.001f, 0.05f, 0.05f);
+		}
+
 
 		//prevent player from healing past max health
 		if(currentHealth > totalHealth){
@@ -127,6 +140,8 @@ public class PlayerStats : CharacterStats {
 				Application.LoadLevel("mainMenu");
 			}
 		}
+
+
 	}
 	
 	// handles smellpoints
@@ -201,5 +216,26 @@ public class PlayerStats : CharacterStats {
 		}
 		
 		oldShield.rigidbody.velocity = new Vector3 (1f, 3f, 1f);
+	}
+
+	public void PickUpSpell(GameObject newSpell){
+		GameObject oldSpell = currentSpell;
+		currentSpell = newSpell;
+
+		currentSpell.transform.parent = GameObject.FindGameObjectWithTag ("MainCamera").transform;
+		currentSpell.GetComponent<MeshRenderer> ().castShadows = false;
+		currentSpell.GetComponent<MeshRenderer> ().receiveShadows = false;
+		currentSpell.GetComponent<Rigidbody> ().useGravity = false;
+
+		float aspect = (float) Screen.width / (float) Screen.height;
+		currentSpell.transform.localPosition = new Vector3 ((0.5f * aspect), 0.45f , 1f);
+		currentSpell.transform.localScale = new Vector3 (0.001f, 0.05f, 0.05f);
+
+		currentSpell.GetComponent<ParticleSystem> ().startSize = 0.1f;
+		currentSpell.GetComponent<ParticleSystem> ().startLifetime = 0.1f;
+
+		if(oldSpell != null){
+			Destroy(oldSpell);
+		}
 	}
 }

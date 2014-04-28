@@ -39,19 +39,21 @@ public class ChestController : MonoBehaviour {
 		GameObject newitem;
 		float itemchance = Random.value;
 
-		if(itemchance > 1){
-			//spawn spell
-		} else if(itemchance > 0.65){
+		itemchance = 0.95f;
+
+		if(itemchance > 0.9f){
+			newitem = (GameObject)Instantiate (Resources.Load ("Prefabs/Items/Spell"));
+			GameObject.Find ("GeneralScripts").GetComponent<GenerateLevel> ().spellList.Add (newitem);
+		} else if(itemchance > 0.55){
 			newitem = (GameObject)Instantiate(Resources.Load("Prefabs/Items/Shield"));
-			newitem.transform.position = transform.position;
-			newitem.rigidbody.velocity = new Vector3(-direction.x, 7f, -direction.z);
 			GameObject.Find ("GeneralScripts").GetComponent<GenerateLevel> ().shieldList.Add (newitem);
 		} else {
 			newitem = (GameObject)Instantiate(Resources.Load("Prefabs/Items/Sword"));
-			newitem.transform.position = transform.position;
-			newitem.rigidbody.velocity = new Vector3(-direction.x, 7f, -direction.z);
 			GameObject.Find ("GeneralScripts").GetComponent<GenerateLevel> ().swordList.Add (newitem);
 		}
+
+		newitem.transform.position = transform.position;
+		newitem.rigidbody.velocity = new Vector3(-direction.x, 7f, -direction.z);
 
 
 	}

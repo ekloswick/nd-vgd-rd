@@ -10,8 +10,6 @@ public class CharacterStats : MonoBehaviour {
 	[HideInInspector]
 	public int totalHealth, currentHealth;
 	[HideInInspector]
-	public GameObject currentSpell;
-	[HideInInspector]
 	public List<int> currentStatuses = new List<int>();
 	
 	private float damageTimeStamp;

@@ -41,6 +41,8 @@ public class GenerateLevel : MonoBehaviour
 	public List<GameObject> swordList = new List<GameObject>();
 	[HideInInspector]
 	public List<GameObject> shieldList = new List<GameObject>();
+	[HideInInspector]
+	public List<GameObject> spellList = new List<GameObject>();
 	
 	// enemies
 	private GameObject goblinObject;
@@ -205,6 +207,19 @@ public class GenerateLevel : MonoBehaviour
 		}
 		foreach(GameObject obj in templist){
 			shieldList.Remove(obj);
+		}
+
+		//remove all spells on ground
+		templist = new List<GameObject> ();
+		foreach (GameObject spell in spellList)
+		{
+			if(spell.transform.root.tag != "MainCamera"){
+				GameObject.Destroy (spell);
+				templist.Add (spell);
+			}
+		}
+		foreach(GameObject obj in templist){
+			spellList.Remove (obj);
 		}
 
 		// remove tiles
