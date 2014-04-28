@@ -31,6 +31,7 @@ public class SpellDamage : MonoBehaviour {
 			other.gameObject.GetComponentInChildren<Animator>().SetTrigger("triggerDamaged");
 		}
 		
+		this.GetComponent<AudioSource>().Play ();
 		
 		transform.GetComponent<TrailRenderer>().time = 0.1f;
 		GameObject obj = (GameObject)Instantiate(explosionParticle);

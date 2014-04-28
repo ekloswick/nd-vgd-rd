@@ -11,6 +11,8 @@ public class WeaponStats : MonoBehaviour {
 	public GameObject playerReference;
 
 	private GUIText popup;
+	public AudioSource swingSound;
+	public AudioSource pickupSound;
 
 	// Use this for initialization
 	void Start ()
@@ -33,12 +35,12 @@ public class WeaponStats : MonoBehaviour {
 			renderer.material.color = new Color(Random.value, Random.value, Random.value);
 		}
 
-
 		//damage = Random.Range(1+playerReference.GetComponent<PlayerStats>().currentLevel, (1+playerReference.GetComponent<PlayerStats>().currentLevel)*2);
 
 		cooldown = Random.Range (1,5) / 4f;
 
 		popup = (GUIText) Instantiate (popupref);
+		
 	}
 	
 	// Update is called once per frame
@@ -61,6 +63,7 @@ public class WeaponStats : MonoBehaviour {
 					+ "> -> <" + damage + ", " + heal.ToString("#%") + ">)";
 			if(Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown(MyInput.A_name)){
 				playerReference.GetComponent<PlayerStats>().PickUpSword(gameObject);
+				pickupSound.Play ();
 			}
 		} else {
 			popup.text = "";
@@ -72,6 +75,8 @@ public class WeaponStats : MonoBehaviour {
 	{
 		if (playerReference.GetComponent<PlayerStats>().myAnim.GetBool("attacking") && transform.root.tag == "Player")
 		{
+			swingSound.Play ();
+			
 			if (other.tag == "Enemy")
 			{
 				// assume melee for now

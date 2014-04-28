@@ -3,9 +3,12 @@ using System.Collections;
 
 public class BoulderDamage : MonoBehaviour {
 
+	private bool hitGround;
+
 	// Use this for initialization
-	void Start () {
-	
+	void Start ()
+	{
+		hitGround = false;
 	}
 	
 	// Update is called once per frame
@@ -23,6 +26,11 @@ public class BoulderDamage : MonoBehaviour {
 				//Debug.Log (transform.rigidbody.velocity.magnitude);
 				other.gameObject.GetComponent<CharacterStats>().isAttackedBy(transform.gameObject);
 			}
+		}
+		else if (!hitGround && other.transform.tag == "Floor")
+		{
+			this.GetComponent<AudioSource>().Play();
+			hitGround = true;
 		}
 	}
 }

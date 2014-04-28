@@ -56,6 +56,7 @@ public class SpellStats : MonoBehaviour {
 
 			if(Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown(MyInput.A_name)){
 				playerReference.GetComponent<PlayerStats>().PickUpSpell(gameObject);
+				this.GetComponent<AudioSource>().Play ();
 			}
 		} else {
 			popup.text = "";

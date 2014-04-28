@@ -53,6 +53,7 @@ public class ShieldStats : MonoBehaviour {
 					"> -> <" + movespeed.ToString("#%") + ", " + turnspeed + (char)176 + ">)";
 			if(Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown(MyInput.A_name)){
 				playerReference.GetComponent<PlayerStats>().PickUpShield(gameObject);
+				this.GetComponent<AudioSource>().Play ();
 			}
 		} else {
 			popup.text = "";

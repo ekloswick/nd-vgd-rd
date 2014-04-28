@@ -11,13 +11,16 @@ public class CharacterStats : MonoBehaviour {
 	public int totalHealth, currentHealth;
 	[HideInInspector]
 	public List<int> currentStatuses = new List<int>();
+	[HideInInspector]
+	public AudioSource characterHitSound;
 	
 	private float damageTimeStamp;
+	
 	
 	// Use this for initialization
 	void Start ()
 	{
-		damageTimeStamp = Time.time;
+		//damageTimeStamp = Time.time;
 	}
 	
 	// Update is called once per frame
@@ -43,8 +46,7 @@ public class CharacterStats : MonoBehaviour {
 				
 				// if still some damage, hurt player and make invincible for short time
 				if (damage > 0)
-				{
-					
+				{					
 					int damagedealt;
 					if(currentHealth >= damage){
 						damagedealt = damage;
@@ -52,8 +54,10 @@ public class CharacterStats : MonoBehaviour {
 						damagedealt = currentHealth;
 					}
 					source.transform.root.GetComponent<PlayerStats>().damagedealt += damagedealt;
-
 					currentHealth -= damage;
+					
+					characterHitSound.Play();
+					
 					damageTimeStamp = Time.time + damagedCooldown;
 				}
 
@@ -80,6 +84,7 @@ public class CharacterStats : MonoBehaviour {
 				if (damage > 0 && source.gameObject.GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Attacking"))
 				{
 					currentHealth -= damage;
+					characterHitSound.Play();
 					damageTimeStamp = Time.time + damagedCooldown;
 				}
 				
@@ -88,6 +93,7 @@ public class CharacterStats : MonoBehaviour {
 			else if (source.transform.root.tag == "Floor" || source.transform.root.tag == "Boulder")
 			{
 				currentHealth -= 1;
+				characterHitSound.Play();
 				damageTimeStamp = Time.time + damagedCooldown;
 			}
 			// spells, they are parented to MainCamera
@@ -95,7 +101,6 @@ public class CharacterStats : MonoBehaviour {
 			{
 				// the original damage
 				damage = GameObject.FindWithTag("MainCamera").GetComponentInChildren<SpellStats>().damage;
-				Debug.Log ("Spell damage is: " + damage);
 				
 				// add in any resistances/damage reductions here
 				
@@ -104,6 +109,7 @@ public class CharacterStats : MonoBehaviour {
 				if (damage > 0)
 				{
 					currentHealth -= damage;
+					characterHitSound.Play();
 					damageTimeStamp = Time.time + damagedCooldown;
 				}
 			}
