@@ -70,7 +70,7 @@ public class PlayerStats : CharacterStats {
 
 		GameObject.FindWithTag ("GameController").GetComponent<PlayerHUD> ().updateItems (currentWeapon, currentShield);
 
-		currentLevel = 1;
+		//currentLevel = 1;
 
 		// initialize "smellPoints" to allow smarter enemy chasing
 		InvokeRepeating("UpdateSmellPoints", 0, 0.5f);
@@ -237,7 +237,9 @@ public class PlayerStats : CharacterStats {
 		currentSpell.GetComponent<ParticleSystem> ().startSize = 0.1f;
 		currentSpell.GetComponent<ParticleSystem> ().startLifetime = 0.1f;
 
-		if(oldSpell != null){
+		if(oldSpell != null)
+		{
+			GameObject.FindWithTag ("GameController").GetComponent<GenerateLevel> ().spellList.Remove(oldSpell);
 			Destroy(oldSpell);
 		}
 	}

@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour {
 	private float rotatespeed;
 	private float speedmod;
 
+	private float spellTimeStamp;
+
 	// Use this for initialization
 	void Start () {
 
@@ -28,6 +30,8 @@ public class PlayerController : MonoBehaviour {
 		myAnim.SetBool ("attacking", false);
 
 		rigidbody.freezeRotation = true;
+	
+		spellTimeStamp = Time.time;
 	
 	}
 
@@ -50,6 +54,18 @@ public class PlayerController : MonoBehaviour {
 			myAnim.SetBool("blocking", false);
 		}
 
+		// shoot spell
+		if (transform.GetComponent<PlayerStats>().currentSpell != null && (Input.GetButtonDown(MyInput.RB_name) || Input.GetKeyDown(KeyCode.E))
+		    && spellTimeStamp < Time.time)
+		{
+			GameObject obj = (GameObject)Instantiate(Resources.Load("Prefabs/Items/SpellProjectile"));
+			obj.transform.position = transform.position + new Vector3(0f, 1f, 0f) + transform.forward;
+			obj.GetComponent<ParticleSystem>().startColor = transform.GetComponent<PlayerStats>().currentSpell.GetComponent<ParticleSystem>().renderer.material.color;
+			obj.rigidbody.velocity = 3f * transform.forward;
+			
+			SpellStats spell = transform.GetComponent<PlayerStats>().currentSpell.GetComponent<SpellStats>();
+			spellTimeStamp = Time.time + spell.cooldown;
+		}
 
 	}
 	
