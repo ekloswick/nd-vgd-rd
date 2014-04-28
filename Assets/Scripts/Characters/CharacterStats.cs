@@ -101,6 +101,7 @@ public class CharacterStats : MonoBehaviour {
 			{
 				// the original damage
 				damage = GameObject.FindWithTag("MainCamera").GetComponentInChildren<SpellStats>().damage;
+				//Debug.Log ("Spell damage is: " + damage);
 				
 				// add in any resistances/damage reductions here
 				
@@ -108,6 +109,14 @@ public class CharacterStats : MonoBehaviour {
 				// if still some damage, hurt player and make invincible for short time
 				if (damage > 0)
 				{
+					int damagedealt;
+					if(currentHealth >= damage){
+						damagedealt = damage;
+					} else {
+						damagedealt = currentHealth;
+					}
+					GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>().damagedealt += damagedealt;
+
 					currentHealth -= damage;
 					characterHitSound.Play();
 					damageTimeStamp = Time.time + damagedCooldown;

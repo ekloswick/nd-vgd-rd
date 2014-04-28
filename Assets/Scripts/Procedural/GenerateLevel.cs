@@ -63,7 +63,7 @@ public class GenerateLevel : MonoBehaviour
 		//Random.seed = 140394581;
 		//Random.seed = 608781738;
 		
-		Debug.Log (Random.seed);
+		//Debug.Log (Random.seed);
 		
 		
 		setupDungeon();
@@ -152,7 +152,7 @@ public class GenerateLevel : MonoBehaviour
 		// move player to starting area
 		GameObject.FindWithTag("Player").transform.position = new Vector3(startingLocation[0], 0, startingLocation[1]);
 		
-		Debug.Log("Done!");
+		//Debug.Log("Done!");
 		
 		return;
 	}

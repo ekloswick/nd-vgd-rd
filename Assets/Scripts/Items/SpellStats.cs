@@ -51,7 +51,7 @@ public class SpellStats : MonoBehaviour {
 				currcooldown = playerReference.GetComponent<PlayerStats>().currentSpell.GetComponent<SpellStats>().cooldown;
 
 				popup.text = "A (Xbox)/Q (Key) for spell (Damage/Cooldown: <" + currdamage + ", " + currcooldown.ToString("#.##")
-					+ "> -> <" + damage + ", " + cooldown.ToString("#%") + ">)";
+					+ "> -> <" + damage + ", " + cooldown.ToString("#.##") + ">)";
 			}
 
 			if(Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown(MyInput.A_name)){
