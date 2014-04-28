@@ -21,7 +21,7 @@ public class SpellDamage : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.tag == "Player" || other.tag == "SpellProjectile")
+		if (other.tag == "Player" || other.tag == "SpellProjectile" || other.tag == "Floor")
 		{
 			return;
 		}
