@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour {
 	private float rotatespeed;
 	private float speedmod;
 
-	private float spellTimeStamp;
+	public float spellTimeStamp;
 
 	// Use this for initialization
 	void Start () {
@@ -66,6 +66,8 @@ public class PlayerController : MonoBehaviour {
 			SpellStats spell = transform.GetComponent<PlayerStats>().currentSpell.GetComponent<SpellStats>();
 			spellTimeStamp = Time.time + spell.cooldown;
 		}
+
+
 
 	}
 	

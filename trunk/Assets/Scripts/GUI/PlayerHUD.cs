@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerHUD : MonoBehaviour {
 
 	public GUIText level;
+	public GUIText cooldown;
 	public GUITexture guiref;
 	public GameObject player;
 	public GameObject mycamera;
@@ -74,6 +75,14 @@ public class PlayerHUD : MonoBehaviour {
 		refreshItemsTransform ();
 
 		level.text = "Level: " + player.GetComponent<PlayerStats> ().currentLevel;
+
+		float timeleft = player.GetComponent<PlayerController> ().spellTimeStamp - Time.time;
+		if(timeleft > 0){
+			cooldown.text = timeleft.ToString("0.#");
+		} else {
+			cooldown.text = "";
+		}
+
 	}
 
 	public void updateItems(GameObject sword, GameObject shield){
