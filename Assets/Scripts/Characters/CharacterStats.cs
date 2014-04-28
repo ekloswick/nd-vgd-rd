@@ -32,7 +32,7 @@ public class CharacterStats : MonoBehaviour {
 		
 		// if cooldown has worn off, calculate possible damage
 		if (damageTimeStamp < Time.time)
-		{
+		{			
 			if (source.transform.root.tag == "Player")
 			{
 				// the original damage
@@ -89,6 +89,23 @@ public class CharacterStats : MonoBehaviour {
 			{
 				currentHealth -= 1;
 				damageTimeStamp = Time.time + damagedCooldown;
+			}
+			// spells, they are parented to MainCamera
+			else if (source.transform.root.tag == "MainCamera")
+			{
+				// the original damage
+				damage = GameObject.FindWithTag("MainCamera").GetComponentInChildren<SpellStats>().damage;
+				Debug.Log ("Spell damage is: " + damage);
+				
+				// add in any resistances/damage reductions here
+				
+				
+				// if still some damage, hurt player and make invincible for short time
+				if (damage > 0)
+				{
+					currentHealth -= damage;
+					damageTimeStamp = Time.time + damagedCooldown;
+				}
 			}
 			
 			// make sure negative health isn't a thing

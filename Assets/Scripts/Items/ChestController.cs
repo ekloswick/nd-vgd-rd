@@ -39,21 +39,21 @@ public class ChestController : MonoBehaviour {
 		GameObject newitem;
 		float itemchance = Random.value;
 
-		itemchance = 0.95f;
+		//itemchance = 0.95f;
 
-		if(itemchance > 0.9f){
+		if(itemchance > 0.8f){
 			newitem = (GameObject)Instantiate (Resources.Load ("Prefabs/Items/Spell"));
-			GameObject.Find ("GeneralScripts").GetComponent<GenerateLevel> ().spellList.Add (newitem);
-		} else if(itemchance > 0.55){
+			GameObject.FindWithTag ("GameController").GetComponent<GenerateLevel> ().spellList.Add (newitem);
+		} else if(itemchance > 0.45){
 			newitem = (GameObject)Instantiate(Resources.Load("Prefabs/Items/Shield"));
-			GameObject.Find ("GeneralScripts").GetComponent<GenerateLevel> ().shieldList.Add (newitem);
+			GameObject.FindWithTag ("GameController").GetComponent<GenerateLevel> ().shieldList.Add (newitem);
 		} else {
 			newitem = (GameObject)Instantiate(Resources.Load("Prefabs/Items/Sword"));
-			GameObject.Find ("GeneralScripts").GetComponent<GenerateLevel> ().swordList.Add (newitem);
+			GameObject.FindWithTag ("GameController").GetComponent<GenerateLevel> ().swordList.Add (newitem);
 		}
 
-		newitem.transform.position = transform.position;
-		newitem.rigidbody.velocity = new Vector3(-direction.x, 7f, -direction.z);
+		newitem.transform.position = transform.position + new Vector3(0f, 1f, 0f);
+		newitem.rigidbody.velocity = new Vector3(-direction.x, 4f, -direction.z);
 
 
 	}

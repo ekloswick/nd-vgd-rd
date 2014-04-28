@@ -20,7 +20,7 @@ public class SpellStats : MonoBehaviour {
 		GameObject currentweapon = playerReference.GetComponent<PlayerStats> ().currentWeapon;
 		int currdamage = currentweapon.GetComponent<WeaponStats>().damage;
 
-		damage = Random.Range (currdamage, currdamage * 2);
+		damage = Random.Range (currdamage * 2, currdamage * 4);
 		cooldown = Random.Range (10f, 20f);
 		renderer.material.color = new Color(Random.value, Random.value, Random.value);
 		GetComponent<ParticleSystem> ().startColor = renderer.material.color;

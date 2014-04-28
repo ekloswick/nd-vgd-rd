@@ -9,7 +9,8 @@ public class GenerateLevel : MonoBehaviour
 	// spawn chances	
 	public float enemyChance = 0.01f,
 					treasureChance = 0.003f,
-					trapChance = 0.015f;
+					trapChance = 0.015f,
+					torchChance = 0.05f;
 
 	// world related variables
 	public int levelSize = 50;
@@ -36,6 +37,7 @@ public class GenerateLevel : MonoBehaviour
 	private List<GameObject> chestList = new List<GameObject>();
 	private List<int[]> rooms = new List<int[]>();
 	private List<GameObject> trapList = new List<GameObject>();
+	private List<GameObject> torchList = new List<GameObject>();
 
 	[HideInInspector]
 	public List<GameObject> swordList = new List<GameObject>();
@@ -50,6 +52,8 @@ public class GenerateLevel : MonoBehaviour
 	// items
 	private GameObject chestObject;
 	
+	// environment
+	private GameObject torchObject;
 	
 	// Use this for initialization
 	void Start ()
@@ -68,8 +72,8 @@ public class GenerateLevel : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if (Input.GetKeyDown (KeyCode.E))
-			Application.LoadLevel("mainGame");
+		//if (Input.GetKeyDown (KeyCode.E))
+		//	Application.LoadLevel("mainGame");
 			
 		/*if(Input.GetKeyDown(KeyCode.G)){
 			foreach (GameObject enemy in enemyList)
@@ -78,10 +82,11 @@ public class GenerateLevel : MonoBehaviour
 			}
 		}*/
 
-		if(win){
+		if (win)
+		{
 			Time.timeScale = 0f;
 
-			GameObject.FindWithTag ("Player").GetComponent<PlayerStats> ().currentLevel = 10;
+			//GameObject.FindWithTag ("Player").GetComponent<PlayerStats> ().currentLevel = 10;
 
 			GameObject.Find ("WinText").GetComponent<GUIText>().enabled = true;
 			GameObject.Find ("KillsGUI").GetComponent<GUIText>().enabled = true;
@@ -94,19 +99,27 @@ public class GenerateLevel : MonoBehaviour
 				Application.LoadLevel("MainMenu");
 			}
 		}
+		
+		// cull particle systems
+		/*foreach (GameObject ps in GameObject.FindGameObjectsWithTag("SpellEffect"))
+		{
+			if (ps.GetComponent<ParticleSystem>().IsAlive())
+				GameObject.Destroy(ps);
+		}*/
 	}
 	
 	// deletes current level and generates the next one. if level > 10, the player wins!
 	public void proceedToNextLevel()
 	{
 		GameObject.FindWithTag ("Player").GetComponent<PlayerStats> ().currentLevel++;
-
-		if (GameObject.FindWithTag ("Player").GetComponent<PlayerStats> ().currentLevel > 10)
-		{
-			win = true;
-		} else {
 		
-			levelSize += 2;
+		//if (GameObject.FindWithTag ("Player").GetComponent<PlayerStats> ().currentLevel > 10)
+		if (GameObject.FindWithTag ("Player").GetComponent<PlayerStats> ().currentLevel > 5)
+			win = true;
+		else
+		{
+			//levelSize += 2;
+			levelSize += 4;
 		
 			clearDungeon();
 			setupDungeon();
@@ -178,6 +191,9 @@ public class GenerateLevel : MonoBehaviour
 		
 		// items
 		chestObject = (GameObject)Resources.Load ("Prefabs/Items/Chest");
+		
+		// environment
+		torchObject = (GameObject)Resources.Load ("Prefabs/Environment/Torch");
 	}
 	
 	// fills dungeon matrix with empty "0" values (correspond to "darkness" tiles)
@@ -244,6 +260,12 @@ public class GenerateLevel : MonoBehaviour
 		foreach (GameObject rock in GameObject.FindGameObjectsWithTag("Boulder"))
 		{
 			GameObject.Destroy (rock);
+		}
+		
+		// remove environmental objects
+		foreach (GameObject torch in GameObject.FindGameObjectsWithTag("Environment"))
+		{
+			GameObject.Destroy (torch);
 		}
 		
 		// remove rooms
@@ -625,6 +647,8 @@ public class GenerateLevel : MonoBehaviour
 						levelMatrix[x,z] = 14;
 					else if (specialChance > 1.0f - enemyChance - treasureChance - trapChance)
 						levelMatrix[x,z] = 15;
+					else if (specialChance > 1.0f - enemyChance - treasureChance - trapChance - torchChance)
+						levelMatrix[x,z] = 6;
 				}
 			}
 		}
@@ -743,6 +767,12 @@ public class GenerateLevel : MonoBehaviour
 					obj = (GameObject)Instantiate(chestObject, new Vector3(x, 0.15f, z), new Quaternion() * Quaternion.Euler(0f,Random.Range(0,4)*90f,0f) );
 					chestList.Add(obj);
 				}
+				// spawns torches
+				else if (levelMatrix[x,z] == 6)
+				{
+					obj = (GameObject)Instantiate(torchObject, new Vector3(x, 0.0f, z), new Quaternion() * Quaternion.Euler(0f,Random.Range(0,4)*90f,0f));
+					torchList.Add(obj);
+				}
 			}
 		}
 		
@@ -780,10 +810,11 @@ public class GenerateLevel : MonoBehaviour
 		{
 			case 0:
 				return (GameObject)Instantiate(wallTile);
-			case 5:
-			case 11:
-			case 13:
-			case 14:
+			case 5: // plain tile
+			case 6: // torch tile
+			case 11:// corridor tile
+			case 13:// enemy tile
+			case 14:// treasure tile
 				return (GameObject)Instantiate(basicTile);
 			case 15:
 				return (GameObject)Instantiate(trapList[Random.Range (0,trapList.Count)]);
