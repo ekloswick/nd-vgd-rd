@@ -123,9 +123,12 @@ public class PlayerStats : CharacterStats {
 		//lose the game
 		if (currentHealth <= 0)
 		{
-			foreach (GUIText text in GameObject.Find("GameOverText").GetComponentsInChildren<GUIText>())
-				text.guiText.enabled = true;
-			
+
+			GameObject.Find ("DeathText").GetComponent<GUIText>().enabled = true;
+			GameObject.Find ("KillsGUI").GetComponent<GUIText>().enabled = true;
+			GameObject.Find ("DamageGUI").GetComponent<GUIText>().enabled = true;
+			GameObject.Find ("QuitGUI").GetComponent<GUIText>().enabled = true;
+
 			Time.timeScale = 0.0f;
 			/*myAnim.SetBool("dead", true);
 			transform.root.GetComponent<PlayerController>().enabled = false;

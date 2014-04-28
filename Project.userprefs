@@ -1,16 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GUI\PlayerHUD.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Characters\Player\PlayerStats.cs">
     <Files>
-      <File FileName="Assets\Scripts\Characters\Player\PlayerStats.cs" Line="242" Column="1" />
-      <File FileName="Assets\Scripts\Items\WeaponStats.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Items\SpellStats.cs" Line="53" Column="116" />
-      <File FileName="Assets\Scripts\Characters\Player\PlayerStats.cs" Line="95" Column="99" />
-      <File FileName="Assets\Scripts\GUI\PlayerHUD.cs" Line="111" Column="45" />
-      <File FileName="Assets\Scripts\Items\ChestController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Procedural\GenerateLevel.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Characters\CharacterStats.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GUI\PauseMenu.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Characters\Player\PlayerStats.cs" Line="127" Column="25" />
+      <File FileName="Assets\Scripts\Procedural\GenerateLevel.cs" Line="89" Column="71" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
