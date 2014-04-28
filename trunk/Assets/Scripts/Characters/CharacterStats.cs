@@ -78,7 +78,10 @@ public class CharacterStats : MonoBehaviour {
 				damage = source.GetComponent<EnemyStats>().attackDamage;
 				
 				// add in any resistances/damage reductions here
-				
+				if (this.gameObject.GetComponent<Animator>().GetBool("blocking") && Vector3.Angle(this.transform.forward, source.transform.forward) > 100)
+				{
+					damage = 0;
+				}
 				
 				// if still some damage, hurt player and make invincible for short time
 				if (damage > 0 && source.gameObject.GetComponentInChildren<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Attacking"))
