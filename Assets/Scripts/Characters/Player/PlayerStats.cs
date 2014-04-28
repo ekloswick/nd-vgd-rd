@@ -70,6 +70,8 @@ public class PlayerStats : CharacterStats {
 
 		GameObject.FindWithTag ("GameController").GetComponent<PlayerHUD> ().updateItems (currentWeapon, currentShield);
 
+		characterHitSound = this.GetComponent<AudioSource>();
+
 		//currentLevel = 1;
 
 		// initialize "smellPoints" to allow smarter enemy chasing

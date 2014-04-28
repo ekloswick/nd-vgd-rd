@@ -17,6 +17,8 @@ public class EnemyStats : CharacterStats {
 		
 		attackDamage = 1;
 		//attackCooldown = 1;
+
+		characterHitSound = this.GetComponent<AudioSource>();
 		
 	}
 	

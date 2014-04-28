@@ -27,6 +27,7 @@ public class ChestController : MonoBehaviour {
 			popup.text = "A (Xbox)/Q (Key) to open chest";
 			if(Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown(MyInput.A_name)){
 				myAnim.SetBool("isOpen", true);
+				this.GetComponent<AudioSource>().Play ();
 				Vector3 direction = Vector3.Normalize(chestpos - playerpos);
 				spawnItem(direction);
 			}

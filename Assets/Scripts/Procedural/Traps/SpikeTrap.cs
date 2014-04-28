@@ -22,6 +22,7 @@ public class SpikeTrap : MonoBehaviour {
 		if (other.tag == "Player" || other.tag == "Enemy")
 		{
 			spikeAnim.SetTrigger("triggerProximity");
+			this.GetComponent<AudioSource>().Play();
 		}
 	}
 }
