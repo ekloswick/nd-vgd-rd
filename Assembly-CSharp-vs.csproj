@@ -62,6 +62,7 @@
      <Compile Include="Assets\Scripts\General\LockMouse.cs" />
      <Compile Include="Assets\Scripts\Items\ChestController.cs" />
      <Compile Include="Assets\Scripts\Items\ShieldStats.cs" />
+     <Compile Include="Assets\Scripts\Items\SpellStats.cs" />
      <Compile Include="Assets\Scripts\Items\WeaponStats.cs" />
      <Compile Include="Assets\Scripts\ObjectDefintions\SmellPoint.cs" />
      <Compile Include="Assets\Scripts\Procedural\GenerateLevel.cs" />

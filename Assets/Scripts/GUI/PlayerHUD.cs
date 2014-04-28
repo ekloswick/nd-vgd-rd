@@ -121,5 +121,9 @@ public class PlayerHUD : MonoBehaviour {
 		}
 		mysword.SetActive (!paused);
 		myshield.SetActive (!paused);
+
+		if(player.GetComponent<PlayerStats> ().currentSpell != null){
+			player.GetComponent<PlayerStats> ().currentSpell.SetActive (!paused);
+		}
 	}
 }
