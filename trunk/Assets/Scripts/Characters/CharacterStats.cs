@@ -124,6 +124,11 @@ public class CharacterStats : MonoBehaviour {
 					characterHitSound.Play();
 					damageTimeStamp = Time.time + damagedCooldown;
 				}
+
+				if(currentHealth <= 0){
+					//record kill
+					GameObject.FindGameObjectWithTag("Player").transform.root.GetComponent<PlayerStats>().kills ++;
+				}
 			}
 			
 			// make sure negative health isn't a thing
