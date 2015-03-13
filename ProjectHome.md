@@ -1,0 +1,1 @@
+This is a video game created with Unity for the Video Game Design class at the University of Notre Dame. Players are tasked with exploring levels of a dungeon and defeating the end boss.
